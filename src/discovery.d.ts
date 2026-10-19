@@ -1,0 +1,23 @@
+import type {VM, compile} from './g8';
+export type ExperimentConfig = {ticks: number; address: number; tick: number; mode: 'none' | 'flip' | 'uncouple'};
+export type Descriptor = {population: number; transitions: number; components: number; largest: number; changedBits: number; stability: number};
+export type Occurrence = {run: string; tick: number; matrix: string};
+export type DiscoveryResult = {
+  format: string;
+  initialBits: string | null;
+  source: string;
+  config: ExperimentConfig;
+  shape: number[];
+  boundary: string;
+  connectivity: number;
+  ruleAxis: string;
+  periodicity: Record<string,number | null>;
+  rows: (Descriptor & {run: string; matrix: string})[];
+  patterns: (Descriptor & {id: string; bits: string; occurrences: Occurrence[]; crossRunCount: number; classification: string})[];
+  differences: {tick: number; matrices: {matrix: string; differentBits: number}[]}[];
+  histories: Record<string,{matrix: string; bits: string}[][]>;
+};
+export function key(bits: Uint8Array): string;
+export function describe(bits: Uint8Array, previous?: Uint8Array): Descriptor;
+export function validate(ticks: number, address: number, tick: number, mode: string): void;
+export function analyze(vm: typeof VM, program: ReturnType<typeof compile>, config: ExperimentConfig, initialBits?: string): DiscoveryResult;

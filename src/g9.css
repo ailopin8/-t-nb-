@@ -1,0 +1,9 @@
+.g9 .g8-pane { margin-bottom: 12px; }
+.g9 input[type=number] { width: 80px; }
+.g9 label { display: inline-flex; gap: 7px; align-items: center; flex-wrap: wrap; margin: 5px; }
+.g9 table { width: 100%; border-collapse: collapse; font: 11px monospace; }
+.g9 td,.g9 th { padding: 9px; border-bottom: 1px solid #304b67; text-align: left; }
+.g9-scroll { overflow-x: auto; }
+.g9 pre { white-space: pre-wrap; overflow-wrap: anywhere; color: #b5d3ea; font-size: 11px; }
+.g9 p { line-height: 1.7; font-size: 12px; color: #a7bed5; }
+.g9 select { max-width: 100%; }

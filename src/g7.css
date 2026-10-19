@@ -1,0 +1,52 @@
+.g7 {margin-top:13px}
+.g7-content {padding:0 18px 19px}
+.g7-lead {font-size:12px;color:#a3b7d1;line-height:1.7;margin:0 0 15px}
+.g7-editor {display:grid;grid-template-columns:minmax(0,1.25fr) minmax(300px,1fr);gap:12px}
+.g7-author,.g7-code,.g7-volume,.g7-packet,.g7-evidence {background:#0c192a;border:1px solid #304663;border-radius:10px;min-width:0}
+.g7-author,.g7-code {padding:12px}
+.g7-bar {display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:11px;flex-wrap:wrap}
+.g7-bar strong {font:700 11px 'Space Grotesk',sans-serif;letter-spacing:.6px;color:#c5d9f2}
+.g7-bar span {font-size:10px;color:#91a6bf}
+.g7 select {background:#14243a;border:1px solid #3b5374;color:#e3edff;border-radius:7px;font-size:11px;padding:8px}
+#g7-source {display:block;width:100%;height:270px;resize:vertical;background:#07111e;border:1px solid #27415d;border-radius:8px;color:#d6e9fd;padding:12px;font:11px/1.7 ui-monospace,SFMono-Regular,Menlo,monospace;outline-offset:2px}
+.g7-actions,.g7-transport,.g7-buttons {display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.g7-actions {margin-top:10px}
+.g7 button {background:#172c44;border:1px solid #41617d;color:#ddedfd;padding:9px 12px;border-radius:8px;cursor:pointer;font-size:11px}
+.g7 button:hover:not(:disabled) {border-color:#78b9d2}
+.g7 button:disabled {opacity:.42;cursor:not-allowed}
+.g7 button.g7-primary {background:#245a79;color:#fff;border-color:#408fb4;font-weight:700}
+#g7-diagnostics {white-space:pre-line;flex:1;line-height:1.6;font:10px/1.5 ui-monospace,monospace}
+#g7-diagnostics.g7-ok {color:#77dda9}
+#g7-diagnostics.g7-bad {color:#ff9cae}
+#g7-grammar {border-top:1px solid #2b405b;margin-top:12px;padding-top:10px;color:#a5bbd4;font-size:11px;line-height:1.7}
+#g7-grammar summary {cursor:pointer;color:#d9e8f9;font-weight:700}
+#g7-grammar pre {white-space:pre-wrap;word-break:break-word;font:10px/1.6 ui-monospace,monospace;color:#b8d7f5}
+.g7-assembly {height:348px;overflow-y:auto;scrollbar-width:thin}
+.g7-assembly p {color:#809dbb;font-size:12px;line-height:1.7}
+.g7-assembly h4 {font:700 11px 'Space Grotesk';color:#ecbf7f;margin:15px 0 9px}
+.g7-instruction {display:flex;flex-wrap:wrap;gap:5px 12px;margin:0 0 6px;padding:8px;background:#111e30;border-radius:6px;border:1px solid #213954}
+.g7-instruction code {font:11px ui-monospace,monospace;color:#80c8ec;letter-spacing:.3px}
+.g7-instruction span {color:#94aac7;font:10px ui-monospace,monospace}
+.g7-transport {justify-content:space-between;margin:13px 0;gap:12px}
+.g7-transport label {display:flex;align-items:center;gap:8px;color:#aac0d9;font-size:11px}
+.g7-transport input {width:88px;accent-color:#4dbfd7}
+.g7-transport output {min-width:34px}
+.g7-cubes {display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.g7-volume {padding:11px}
+.g7-volume canvas {width:100%;height:235px;display:block;border-radius:8px;background:radial-gradient(circle,#0f2437,#070e1b)}
+.g7-unit {font:10px/1.7 ui-monospace,monospace;color:#9ab0ce;margin-top:8px;min-height:36px}
+.g7-gold {color:#efbc6b!important}
+.g7-cyan {color:#58d7e9!important}
+.g7-blue {color:#8cafe8}
+.g7-purple {color:#b999ef}
+.g7-green {color:#66ddaa}
+.g7-bottom {display:grid;grid-template-columns:1.3fr 1fr;gap:12px;margin-top:12px}
+.g7-packet,.g7-evidence {padding:13px}
+.g7-bits {font:clamp(10px,1.2vw,15px)/1.7 ui-monospace,monospace;overflow-wrap:anywhere;letter-spacing:.7px;min-height:42px}
+.g7-key {font-size:9px;color:#87a0bb;letter-spacing:.4px;line-height:1.6}
+.g7-log {white-space:pre-wrap;font:10px/1.8 ui-monospace,monospace;color:#bdcfe2;max-height:165px;overflow:auto}
+#g7-control {font-size:11px;color:#d4e6f9;line-height:1.8;overflow-wrap:anywhere}
+#g7-selftest {display:block;color:#6bd1a0;margin-top:13px;line-height:1.6;font-size:10px}
+.g7-foot {margin:13px 0 0;color:#869db9;line-height:1.7;font-size:10px}
+@media(max-width:1000px) {.g7-editor,.g7-bottom {grid-template-columns:1fr}.g7-assembly {height:250px}}
+@media(max-width:620px) {.g7-content {padding:0 11px 13px}.g7-cubes {grid-template-columns:1fr}.g7-volume canvas {height:230px}.g7-transport {align-items:flex-start}.g7-buttons {width:100%}#g7-source {height:300px}.g7-bits {font-size:11px}}
