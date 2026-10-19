@@ -94,3 +94,36 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid 
 #layers-body>.placeholder{margin-bottom:3px}
 .edge-settings label:first-child{min-width:145px}
 @media(max-width:620px){#layers-body{padding:0 11px 13px}.layer-list{grid-template-columns:1fr}.inner-tools,.inner-new-link{align-items:stretch;flex-direction:column}.inner-tools label,.inner-new-link label,.inner-tools select,.inner-new-link select{width:100%}.pattern-output{align-items:stretch;flex-direction:column}.inner-summary strong{font-size:11px}}
+
+
+/* G6 purpose, theoretical model and counterfactual experiment workbench */
+.g6-theory,.g6-experiment{margin-top:13px}
+.g6-theory-body,.g6-body{padding:0 18px 19px}
+.g6-purpose{font-size:13px;line-height:1.6;color:#d7e7fb;margin:0 0 12px}
+.g6-steps{display:grid;grid-template-columns:repeat(6,1fr);gap:7px}
+.g6-steps span{border:1px solid #334c68;background:#14283c;border-radius:9px;padding:11px 4px;text-align:center;font:700 11px 'Space Grotesk';color:#acd6ee}
+.g6-theory details{margin-top:13px;border-top:1px solid #2a405c;padding-top:12px;color:#aec1d8;font-size:12px;line-height:1.65}
+.g6-theory summary{cursor:pointer;font-weight:700;color:#d5e9fb}
+.g6-theory details p{max-width:980px}
+.g6-body>p{font-size:12px;color:#9eb4cf;line-height:1.65;margin:0 0 14px}
+.g6-controls{display:flex;gap:11px;align-items:flex-end;flex-wrap:wrap;margin-bottom:16px}
+.g6-controls label{display:flex;flex-direction:column;gap:7px;font-size:10px;color:#a8bbd4}
+.g6-controls select{background:#13263b;color:#e5f4ff;border:1px solid #3d5b79;border-radius:8px;padding:10px;font-size:11px}
+.g6-controls button{padding:10px 12px;border:1px solid #416583;background:#193149;border-radius:8px;color:#d4e9fd;font-size:11px;min-height:37px}
+.g6-controls .g6-primary{background:#215b79;border-color:#3b9abe;color:#e1f9ff;font-weight:700}
+.g6-controls button:disabled{opacity:.4;cursor:not-allowed}
+.g6-output{display:grid;grid-template-columns:1.15fr 1fr;gap:13px}
+.g6-plot,.g6-measures{background:#0d1a2d;border:1px solid #304561;border-radius:10px;padding:14px;min-width:0}
+.g6-plot-title{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:7px}
+.g6-plot-title strong{font:700 13px 'Space Grotesk'}
+.g6-plot-title span{font-size:10px;color:#96adc7}
+.g6-plot svg{width:100%;height:auto;display:block}
+.g6-empty{color:#879ebb;font-size:12px;line-height:1.6}
+.g6-readouts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.g6-readouts>div{padding:10px;border:1px solid #2b425e;border-radius:8px;background:#101f34;display:flex;flex-direction:column;gap:6px}
+.g6-readouts span{font-size:10px;color:#9fb6d1}
+.g6-readouts strong{font:700 18px 'Space Grotesk';overflow-wrap:anywhere;color:#ecf5ff}
+.g6-conclusion{font-size:11px;line-height:1.65;color:#f0ce91;border-top:1px solid #2c4560;padding-top:10px}
+.g6-body p.g6-disclaimer{font-size:10px;color:#8fa4be;margin:12px 0 0}
+@media(max-width:1050px){.g6-output{grid-template-columns:1fr}.g6-readouts{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:620px){.g6-body,.g6-theory-body{padding:0 11px 13px}.g6-steps{grid-template-columns:repeat(3,1fr)}.g6-controls{align-items:stretch}.g6-controls label,.g6-controls select{width:100%}.g6-readouts{grid-template-columns:repeat(2,minmax(0,1fr))}}

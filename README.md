@@ -77,3 +77,14 @@ The 3D viewer blends algorithmic pattern fields into a shared environment; its r
 The graph editor now supports v3 JSON network export/import, with backward compatibility for the earlier v2 export.
 
 See [G5 design and verification](docs/g5-nested-algorithms.md) for the model and exact gate checks.
+
+
+## G6: BARE theory and experimental intervention laboratory
+
+The project's defined purpose is **to make the formation of complex system behaviour observable, experimentally testable, reproducible and constructible through algorithmic composition**.
+
+The proposed [Bounded Algorithmic Relational Emergence theory](docs/atunbi-purpose-bare-theory.md) connects this purpose to falsifiable hypotheses and explicit limitations. The deployed G6 website implements a [controlled relationship-ablation experiment](docs/g6-experiment-protocol.md): start from identical algorithm states, remove all/internal/external links in one comparison world, and measure divergence, spatial structure and persistence.
+
+This instrument detects relationship-dependent differences and possible *candidate collective patterns*. It does not automatically establish emergence. The [G6 software architecture](docs/g6-software-architecture.md) maps the philosophy and theory onto components, verification gates and prioritized future innovations.
+
+**G6 source:** `src/emergence.ts`; **live site:** https://atunbi-algorithmic-sandbox-network-g8lqqr.v2.appdeploy.ai/

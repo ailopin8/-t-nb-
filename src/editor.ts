@@ -2,6 +2,8 @@ import './g4.css';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { VRButton } from 'three/addons/webxr/VRButton.js';
+import { runAblationExperiment } from './emergence';
+import type { ExperimentResult, Ablation } from './emergence';
 
 const N = 10;
 const CELLS = N ** 3;
@@ -456,8 +458,8 @@ const root = document.querySelector<HTMLElement>('#app');
 if (!root) throw new Error('App root missing');
 root.innerHTML = [
   '<div class="studio">',
-  ' <header class="mast"><div class="identity"><span class="mark">◎</span><div><span class="micro">ALGORITHMIC SYSTEMS LABORATORY</span><h1>ÀTÚNBÍ <span> / node editor</span></h1></div></div><span class="version">G5 · NESTED ALGORITHM NETWORKS</span></header>',
-  ' <section class="intro4"><div><h2>An empty space. Algorithms. Patterns. Relationships.</h2><p>Each 10 × 10 × 10 environment begins empty. Install multiple independent algorithms, connect their patterns internally, and expose one chosen output to other environments.</p></div><div class="stats"><strong id="node-count">0</strong><span>ENVIRONMENTS</span><strong id="edge-count">0</strong><span>RELATIONSHIPS</span></div></section>',
+  ' <header class="mast"><div class="identity"><span class="mark">◎</span><div><span class="micro">ALGORITHMIC SYSTEMS LABORATORY</span><h1>ÀTÚNBÍ <span> / node editor</span></h1></div></div><span class="version">G6 · INTERVENTION LAB</span></header>',
+  ' <section class="intro4"><div><h2>Create patterns. Compose systems. Test what emerges.</h2><p>Purpose: understand and engineer how algorithms generate collective behaviour. Begin with an empty 10³ environment, install algorithms, connect pattern outputs, and use controlled experiments to measure the consequences.</p></div><div class="stats"><strong id="node-count">0</strong><span>ENVIRONMENTS</span><strong id="edge-count">0</strong><span>RELATIONSHIPS</span></div></section>',
   ' <div class="toolbar"><div class="tools-left"><button type="button" id="add-btn" class="accent">＋ Add empty sandbox</button><button type="button" id="example-btn">Load example</button><button type="button" id="clear-btn">Clear workspace</button></div><div class="tools-right"><button type="button" id="export-btn">↓ Export JSON</button><button type="button" id="import-btn">↑ Import JSON</button><input type="file" id="import-file" accept=".json,application/json" hidden /></div></div>',
   ' <div class="columns">',
   '  <section class="panel4 graph-section"><div class="section-head"><div><span class="micro">01 / PATTERN NETWORK</span><h3>Node graph</h3></div><span class="hint">DRAG NODES BY THEIR HEADERS</span></div>',
@@ -473,7 +475,9 @@ root.innerHTML = [
   ' <section class="panel4 inner-section"><div class="section-head"><div><span class="micro">03 / INTERNAL ALGORITHM GRAPH</span><h3>Inside an environment</h3></div><span class="hint">SELECT AN ENVIRONMENT TO EDIT ITS INTERNAL PATTERNS</span></div><div id="layers-body"></div></section>',
   ' <section class="lower"><div class="panel4 connections"><div class="section-head"><div><span class="micro">04 / INTER-ENVIRONMENT RELATIONSHIPS</span><h3>Connections</h3></div><span class="hint">EACH EDGE IS A TRANSFORMATION</span></div><div id="edge-list" class="edge-list"></div></div>',
   ' <div class="panel4 metrics"><div class="section-head"><div><span class="micro">05 / LIVE INSPECTION</span><h3>Observe the experiment</h3></div></div><div id="metrics-list"></div></div></section>',
-  ' <section class="method4"><span class="micro">G5 / ACCEPTANCE GATE</span><p>Create an empty environment → install two algorithms → connect their internal pattern nodes → verify nonzero influence on the receiving algorithm → choose which output is exposed → connect it to a second environment → verify both independent and coupled patterns. Every algorithm must retain its own state.</p></section>',
+  ' <section class="panel4 g6-theory"><div class="section-head"><div><span class="micro">06 / BARE THEORY · VERSION 1.0</span><h3>Purpose, philosophy and experimental theory</h3></div><span class="hint">HYPOTHESES MUST BE TESTABLE</span></div><div class="g6-theory-body"><p class="g6-purpose">To make the formation of complex system behaviour <strong>observable, experimentally testable and constructible</strong> through algorithmic composition.</p><div class="g6-steps"><span>Bound</span><span>Generate</span><span>Compose</span><span>Observe</span><span>Intervene</span><span>Discover</span></div><details><summary>Show philosophical assumptions and hypotheses</summary><p>Space defines possibility; algorithms generate patterns; relationships execute transformations; composition may produce properties not evident in isolation; knowledge requires controlled intervention. These claims form the proposed Bounded Algorithmic Relational Emergence (BARE) framework, not a new established scientific law.</p><p><strong>H1:</strong> connections change trajectories. <strong>H2:</strong> connections may change spatial organisation. <strong>H3:</strong> some effects persist. <strong>H4:</strong> relationship topology and strength change results. Trajectory divergence alone never proves emergence.</p></details></div></section>',
+  ' <section class="panel4 g6-experiment"><div class="section-head"><div><span class="micro">07 / G6 INTERVENTION ENGINE</span><h3>Connected system vs controlled ablation</h3></div><span class="hint">MATCHED INITIAL STATE · DETERMINISTIC RUNS</span></div><div class="g6-body"><p>Run two independent copies of this network from the same current states. The control selectively removes relationships while every existing algorithm continues executing. Your working simulation remains unchanged.</p><div class="g6-controls"><label>Remove relationships in control<select id="g6-ablation"><option value="all">All connections</option><option value="internal">Internal connections only</option><option value="external">External connections only</option></select></label><label>Experiment horizon<select id="g6-horizon"><option value="10">10 ticks</option><option value="24" selected>24 ticks</option><option value="48">48 ticks</option><option value="80">80 ticks</option></select></label><button id="g6-run" class="g6-primary" type="button">▶ Run controlled experiment</button><button id="g6-export" type="button" disabled>↓ Export evidence JSON</button></div><div class="g6-output"><div id="g6-plot" class="g6-plot"><div class="g6-empty">No experiment yet. Add algorithms and connections, then run a controlled comparison.</div></div><div id="g6-observations" class="g6-measures"><p class="g6-empty">The experiment will report spatial divergence, structural differences, persistence and a cautious interpretation.</p></div></div><p class="g6-disclaimer">A measured interaction is evidence of causal sensitivity under this intervention, not automatically evidence of weak or strong emergence. The structural metric is spatial neighbour gradient; the relational metric is within-environment pattern coactivation.</p></div></section>',
+  ' <section class="method4"><span class="micro">G6 / ACCEPTANCE GATE</span><p>Define a hypothesis → create independently running algorithms → introduce internal or external relationships → compare connected and ablated runs from identical states → inspect spatial divergence, structural differences and persistence → export evidence. Treat emergence as a candidate interpretation requiring stronger controls.</p></section>',
   ' <footer>ÀTÚNBÍ · the environment is empty until an algorithm generates a pattern <span>GitHub: ailopin8/-t-nb-</span></footer>',
   ' <div id="toast" role="status" aria-live="polite"></div>',
   '</div>'
@@ -860,6 +864,81 @@ document.querySelector<HTMLInputElement>('#import-file')?.addEventListener('chan
   const el=event.target as HTMLInputElement;
   if(el.files?.[0])importGraph(el.files[0]);
   el.value='';
+});
+function experimentSnapshot() {
+  return {
+    worlds: nodes.map(n => ({
+      id: n.id, outputLayerId: n.outputLayerId,
+      layers: n.layers.map(l => ({ id: l.id, algorithm: l.algorithm, state: l.state.slice() })),
+      innerLinks: n.innerLinks.map(edge => ({ ...edge }))
+    })),
+    externalLinks: edges.map(edge => ({ ...edge }))
+  };
+}
+let lastExperiment: ExperimentResult | null = null;
+let lastExperimentSource: ReturnType<typeof experimentSnapshot> | null = null;
+let lastExperimentStartTime = 0;
+function experimentPlot(data: ExperimentResult): string {
+  const width = 620, height = 194, left = 44, right = 14, top = 21, bottom = 30;
+  const maxValue = Math.max(0.0001,...data.observations.map(o => o.divergence)) * 1.12;
+  const x = (step:number) => left + (step - 1) / Math.max(1,data.horizon - 1) * (width-left-right);
+  const y = (value:number) => top + (1 - value/maxValue) * (height-top-bottom);
+  const path = data.observations.map((o,i) => (i ? 'L' : 'M') + x(o.step).toFixed(2) + ' ' + y(o.divergence).toFixed(2)).join(' ');
+  const lines = [0,.25,.5,.75,1].map(v => '<line x1="'+left+'" y1="'+y(v*maxValue)+'" x2="'+(width-right)+'" y2="'+y(v*maxValue)+'" stroke="#27405a" stroke-dasharray="3 5"/><text x="'+(left-6)+'" y="'+(y(v*maxValue)+3)+'" text-anchor="end" font-size="10" fill="#91a8c5">'+(v*maxValue).toFixed(3)+'</text>').join('');
+  return '<div class="g6-plot-title"><strong>Trajectory divergence</strong><span>RMS across all algorithm states · '+data.horizon+' ticks</span></div><svg viewBox="0 0 620 194" role="img" aria-label="Divergence between connected and ablated network trajectories">'+lines+'<path d="'+path+'" fill="none" stroke="#66cfff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><text x="'+left+'" y="187" fill="#9aafc7" font-size="10">Tick 1</text><text x="'+(width-right)+'" y="187" text-anchor="end" fill="#9aafc7" font-size="10">Tick '+data.horizon+'</text></svg>';
+}
+function renderExperiment(data: ExperimentResult): void {
+  const plot=document.querySelector<HTMLElement>('#g6-plot');
+  const output=document.querySelector<HTMLElement>('#g6-observations');
+  if(plot) plot.innerHTML=experimentPlot(data);
+  if(output) output.innerHTML='<div class="g6-readouts">'
+    +'<div><span>Final divergence</span><strong>'+data.finalDivergence.toFixed(4)+'</strong></div>'
+    +'<div><span>Peak divergence</span><strong>'+data.peakDivergence.toFixed(4)+'</strong></div>'
+    +'<div><span>Spatial gradient Δ</span><strong>'+(data.finalGradientDifference>=0?'+':'')+data.finalGradientDifference.toFixed(5)+'</strong></div>'
+    +'<div><span>Coactivation Δ</span><strong>'+(data.finalCoactivationDifference>=0?'+':'')+data.finalCoactivationDifference.toFixed(5)+'</strong></div>'
+    +'<div><span>Persistent steps</span><strong>'+data.persistentSteps+'</strong></div>'
+    +'<div><span>Candidate pattern</span><strong>'+(data.candidateCollectivePattern?'YES · INVESTIGATE':'NOT ESTABLISHED')+'</strong></div></div>'
+    +'<p class="g6-conclusion">'+data.interpretation+'</p>';
+  const exportButton=document.querySelector<HTMLButtonElement>('#g6-export');
+  if(exportButton)exportButton.disabled=false;
+}
+document.querySelector('#g6-run')?.addEventListener('click',()=>{
+  if(!nodes.some(n => n.layers.length)) {notice('Install algorithms before running an experiment.');return;}
+  const horizon=Number(document.querySelector<HTMLSelectElement>('#g6-horizon')?.value??24);
+  const ablation=(document.querySelector<HTMLSelectElement>('#g6-ablation')?.value??'all') as Ablation;
+  try {
+    const snapshot=experimentSnapshot();
+    const result=runAblationExperiment(snapshot,(layer,input,time)=>evolve({id:layer.id,algorithm:layer.algorithm,state:layer.state,influence:0},input,time),horizon,ablation,tick);
+    lastExperiment=result;
+    lastExperimentSource=snapshot;
+    lastExperimentStartTime=tick;
+    renderExperiment(result);
+    notice('Controlled experiment finished. The live simulation was not modified.');
+  }catch(e){notice('Experiment could not run: '+(e instanceof Error?e.message:'Unknown failure'));}
+});
+document.querySelector('#g6-export')?.addEventListener('click',()=>{
+  if(!lastExperiment||!lastExperimentSource)return;
+  const report={
+    format:'atunbi.g6.ablation.v1',
+    name:'Bounded Algorithmic Relational Emergence intervention experiment',
+    purpose:'Quantify the influence of algorithmic pattern relationships under matched starting conditions.',
+    theory:'BARE v1.0 (proposed, not scientifically validated)',
+    initialTick:lastExperimentStartTime,
+    environmentSize:[N,N,N],
+    hypothesis:['H1 relational influence','H2 structural differentiation','H3 persistence','H4 configuration dependence'],
+    baseline:'Identical initial states, selected relationships disabled in control',
+    initialNetwork:{
+      worlds:lastExperimentSource.worlds.map(n=>({id:n.id,outputLayerId:n.outputLayerId,layers:n.layers.map(l=>({id:l.id,algorithm:l.algorithm,state:Array.from(l.state)})),innerLinks:n.innerLinks})),
+      externalLinks:lastExperimentSource.externalLinks
+    },
+    result:lastExperiment
+  };
+  const blob=new Blob([JSON.stringify(report,null,2)],{type:'application/json'});
+  const url=URL.createObjectURL(blob),anchor=document.createElement('a');
+  anchor.href=url;anchor.download='atunbi-g6-evidence.json';
+  document.body.appendChild(anchor);anchor.click();anchor.remove();
+  window.setTimeout(()=>URL.revokeObjectURL(url),1000);
+  notice('G6 evidence JSON exported with the starting network and complete paired trajectory measurements.');
 });
 redraw();resize();
 notice('Workspace ready. Start with an empty environment; nothing runs until an algorithm is assigned.');

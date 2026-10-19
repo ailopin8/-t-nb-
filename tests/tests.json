@@ -1,99 +1,94 @@
 [
   {
-    "name": "Create empty environment and install independent algorithms",
+    "name": "Purpose and theory underpin the experiment",
     "sanity": true,
     "viewport": "desktop",
     "covers": [
-      "empty startup",
-      "add environment",
-      "initially empty algorithm collection",
-      "add independent algorithms",
-      "live per-algorithm metrics"
+      "purpose statement",
+      "BARE theory",
+      "G6 counterfactual controls",
+      "empty environments"
     ],
-    "description": "Confirms no algorithms exist initially and multiple algorithmic patterns can be installed in a single bounded environment.",
+    "description": "G6 makes its theoretical purpose explicit without preloading algorithms into the workspace.",
     "steps": [
-      "Open the Node Editor and verify No algorithms exist yet",
-      "Click Add first empty sandbox",
-      "In Primary algorithm choose Diffusion",
-      "In Inside an environment, select Oscillator as Install algorithm and click Add algorithm",
-      "Press Step +1"
+      "Open ÀTÚNBÍ",
+      "Inspect the purpose and BARE theory section",
+      "Verify the network initially has no algorithms",
+      "Click Run controlled experiment with the empty workspace"
     ],
-    "expected": "Environment 1 reports 2 / 4 algorithms and shows separate Diffusion and Oscillator pattern means; both change through simulation steps."
+    "expected": "Purpose, hypotheses and G6 controls are present. No simulation is run when no algorithms exist and a warning explains that algorithms must first be installed."
   },
   {
-    "name": "Internal pattern relation changes only receiving algorithm",
+    "name": "Connected versus ablated trajectories produce measurable evidence",
     "viewport": "desktop",
     "covers": [
-      "internal graph links",
-      "typed excite/inhibit transforms",
-      "independent state",
-      "per-algorithm influence measurement",
-      "unlink guardrail"
+      "deterministic paired experiment",
+      "all-edge ablation",
+      "trajectory divergence",
+      "structural gradient",
+      "persistence and candidate interpretation"
     ],
-    "description": "A field produced by one internal algorithm must modify a second algorithm without replacing it.",
+    "description": "Paired comparison starts from matched algorithm states and reports causal sensitivity without claiming proof of emergence.",
     "steps": [
       "Click Load example",
-      "In Inside an environment verify Env 2 has two algorithms and an internal link A1 → A2",
-      "Press Step +1 and inspect impact for A2",
-      "Uncheck Active for the internal A1 → A2 relationship, then click Step +1"
+      "In the G6 workbench leave All connections selected and 24 ticks",
+      "Click Run controlled experiment",
+      "Inspect trajectory graph, final divergence, spatial gradient delta and interpretation"
     ],
-    "expected": "A2 shows nonzero input influence with its link enabled and zero local influence only when no other incoming active connection exists; the existing algorithms remain present."
+    "expected": "A divergence chart with 24 ticks appears and shows nonzero peak divergence, paired measurements, and a cautious interpretation that does not assert scientifically proven emergence."
   },
   {
-    "name": "Select exported pattern and target another specific algorithm",
+    "name": "Ablating a different relationship class changes evidence",
     "viewport": "desktop",
     "covers": [
-      "select exposed pattern output",
-      "external typed connection",
-      "destination algorithm selection",
-      "multiple nested subsystems"
+      "internal ablation",
+      "external ablation",
+      "experimental parameter selection",
+      "hypothesis discrimination"
     ],
-    "description": "Internal algorithms remain independent while the selected output drives an explicitly selected external destination algorithm.",
+    "description": "The operator can compare separately disabling internal and external relationships.",
     "steps": [
       "Click Load example",
-      "In Env 2 internal workbench, choose A1 Oscillator as Expose pattern output",
-      "In Connections choose the destination algorithm for the inter-environment edge",
-      "Press Step +1",
-      "Inspect the live pattern fields and per-algorithm influence values"
+      "Choose Internal connections only and run controlled experiment",
+      "Choose External connections only and run controlled experiment",
+      "Compare peak divergence and final spatial gradient delta"
     ],
-    "expected": "The exposed pattern selection changes while the other algorithm remains present; the external connection targets a specifically selected existing algorithm."
+    "expected": "The experiment panel accepts both interventions and updates its trajectory and measurement results without changing the live node graph."
   },
   {
-    "name": "Delete internal algorithm and retain remaining system",
+    "name": "Zero coupling is a valid negative experimental control",
     "viewport": "mobile",
     "covers": [
-      "internal algorithm deletion",
-      "cascade delete broken links",
-      "empty environment and zero state",
-      "mobile patchbay"
+      "zero-effect control",
+      "disabled relationships",
+      "guardrail",
+      "responsive G6 layout"
     ],
-    "description": "Deleting one algorithm removes its links but preserves the remaining algorithms and environment.",
+    "description": "When all relationships are disabled, connected and ablated runs are identical.",
     "steps": [
       "Click Load example",
-      "In Inside an environment click Remove for A1",
-      "Inspect Environment 2 internal list and external connections",
-      "Remove the remaining A2 algorithm"
+      "Uncheck Active for all inner relationships in each environment",
+      "Uncheck Active on the external relationship",
+      "Choose All connections and run a 10-tick experiment"
     ],
-    "expected": "After first deletion Environment 2 retains A2 with no invalid links; after deleting both it becomes an empty environment without a pattern."
+    "expected": "Peak divergence is 0.0000, there is no interaction detected and Candidate pattern reads NOT ESTABLISHED."
   },
   {
-    "name": "Export v3 inner and outer network, then import",
+    "name": "Export a reproducible G6 evidence record",
     "viewport": "desktop",
     "covers": [
-      "v3 JSON export",
-      "nested layers and links serialization",
-      "import validation",
-      "graph restoration",
-      "reset"
+      "evidence JSON export",
+      "initial network snapshot",
+      "per-tick trajectories",
+      "experiment report metadata"
     ],
-    "description": "Saves and restores the independent algorithm states and relationships in a reproducible JSON record.",
+    "description": "Evidence export must contain the paired experiment configuration and complete observations.",
     "steps": [
-      "Click Load example and Step +1",
-      "Click Export JSON and save atunbi-g5-network.json",
-      "Click Clear workspace and confirm",
-      "Click Import JSON and select the exported file",
-      "Inspect the restored algorithm lists and edge settings"
+      "Click Load example",
+      "Run a 10-tick controlled experiment",
+      "Click Export evidence JSON",
+      "Inspect downloaded file"
     ],
-    "expected": "The network restores two environments, four independently stored algorithm states, two inner relationships, one external relationship and the saved tick."
+    "expected": "A JSON evidence file is downloaded containing BARE v1.0 theory, the initial algorithm states and relationships, the chosen ablation, ten observation records and an explicit interpretation."
   }
 ]
