@@ -88,3 +88,10 @@ The proposed [Bounded Algorithmic Relational Emergence theory](docs/atunbi-purpo
 This instrument detects relationship-dependent differences and possible *candidate collective patterns*. It does not automatically establish emergence. The [G6 software architecture](docs/g6-software-architecture.md) maps the philosophy and theory onto components, verification gates and prioritized future innovations.
 
 **G6 source:** `src/emergence.ts`; **live site:** https://atunbi-algorithmic-sandbox-network-g8lqqr.v2.appdeploy.ai/
+
+
+## Meta Quest 3S spatial interaction upgrade
+
+The GitHub source includes an **unobstructed immersive viewer**, a controller-local on-demand menu, sandbox ray selection, one- and two-grip spatial manipulation, thumbstick translation/rotation/scale, and controller-accessible simulation and sandbox editing.
+
+See [Quest 3S VR controls and headset acceptance tests](docs/quest-3s-vr-controls.md). This revision is committed, but should not be described as live on the original AppDeploy URL until that host has accepted a new release. Headset gestures require real-device testing.
