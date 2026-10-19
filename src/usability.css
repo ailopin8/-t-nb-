@@ -1,0 +1,63 @@
+:root { color-scheme: dark; }
+html { scroll-padding-top: 20px; }
+[id] { scroll-margin-top: 20px; }
+.studio :where(button, select, input:not([type=checkbox]):not([type=range]), summary) { min-height: 44px; }
+.studio :where(button, select, input, textarea, a, summary, [tabindex]):focus-visible {
+  outline: 3px solid #a5ecff;
+  outline-offset: 3px;
+}
+.studio :where(button, select, input, textarea) { font-size: max(12px, .85rem); }
+.studio button:disabled { cursor: not-allowed; }
+.studio input[type=range] { min-height: 30px; }
+.studio :where(input, select, textarea)[aria-invalid=true] { border: 2px solid #ffb7bf; }
+.skip-link { position: fixed; left: 16px; top: -100px; padding: 12px 18px; z-index: 10000; background: #e4faff; color: #081626; border-radius: 8px; }
+.skip-link:focus { top: 12px; }
+.lab-navigation { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+.lab-navigation a { display: inline-flex; align-items: center; min-height: 44px; padding: 8px 12px; color: #d5f3ff; background: #142c43; border: 1px solid #52738d; border-radius: 8px; font-size: 13px; text-decoration: none; }
+.lab-navigation a:hover { background: #254b65; text-decoration: underline; }
+.workflow-guide { border: 1px solid #3c5971; border-radius: 12px; padding: 16px 20px; background: #0d1d2d; }
+.workflow-guide h2 { font-size: 17px; margin: 0 0 12px; }
+.workflow-guide ol { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 14px; padding-left: 20px; color: #c3d8e9; font-size: 13px; line-height: 1.6; }
+.workflow-guide p, .reference-library p { color: #b5cde0; font-size: 13px; line-height: 1.7; }
+.reference-library { margin-top: 14px; padding: 18px; }
+.reference-library h2 { font-size: 21px; margin: 8px 0; }
+.reference-grid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 12px; }
+.reference-grid article { min-width: 0; padding: 18px; background: #0d1d30; border: 1px solid #38516a; border-radius: 10px; }
+.reference-grid h3 { font-size: 16px; line-height: 1.5; margin: 12px 0; }
+.reference-grid a { color: #a5e4ff; text-underline-offset: 4px; overflow-wrap: anywhere; }
+.reference-application { border-top: 1px solid #38516a; padding-top: 12px; }
+.viewer-access { padding: 0 16px 14px; }
+.viewer-access p, .viewer-access summary { color: #c3d8e9; font-size: 13px; line-height: 1.7; }
+.camera-controls { display: flex; flex-wrap: wrap; gap: 8px; margin: 12px 0; }
+.camera-controls button { border: 1px solid #52738d; background: #16344d; color: #e7f5ff; border-radius: 7px; padding: 9px 13px; }
+.sim-description { border-left: 3px solid #8ed6ff; padding: 8px 12px; background: #0d2236; }
+.field-error { color: #ffbac5 !important; display: block; font-size: 13px; margin: 5px; }
+.g9-form-help { color: #c3d8e9; font-size: 13px; }
+.g9-results-summary { border-left: 3px solid #72d9ee; padding: 10px; }
+.g9 :where(td,th) { font-variant-numeric: tabular-nums; }
+.g9 .g9-scroll:focus-visible { outline: 3px solid #a5ecff; outline-offset: 3px; }
+@media(max-width: 760px) {
+  .workflow-guide ol, .reference-grid { grid-template-columns: 1fr; }
+  .studio :is(input, select, textarea) { font-size: 16px !important; max-width: 100%; }
+  .g8-head, .g8-controls, .g9 label { min-width: 0; }
+  .lab-navigation a { flex: 1 1 135px; justify-content: center; }
+}
+@media(prefers-reduced-motion: reduce) {
+  *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+}
+
+.studio #toast { position: static; max-width: none; margin: 0 0 14px; box-shadow: none; }
+
+.controller-menu { border-top: 1px solid #52738d; margin-top: 18px; padding-top: 16px; }
+.controller-menu h3 { font-size: 18px; }
+.controller-actions { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+.controller-actions > div { min-width: 0; }
+.controller-menu button { min-height: 44px; color: #e7f5ff; border: 1px solid #638da6; border-radius: 8px; background: #16344d; padding: 10px; font-size: 13px; }
+.controller-actions button { width: 100%; }
+.controller-actions small { color: #bfd3e0; display: block; padding: 5px; line-height: 1.5; }
+.controller-menu button:disabled { color: #bac6cf; background: #26313d; opacity: 1; }
+.controller-pagination { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-top: 12px; }
+#controller-feedback { white-space: pre-wrap; overflow-wrap: anywhere; padding: 12px; background: #0d2236; border-left: 3px solid #a5ecff; }
+@media(max-width:760px) { .controller-actions { grid-template-columns: 1fr; } }
+
+.studio footer a { color: #a5e4ff; text-underline-offset: 4px; }

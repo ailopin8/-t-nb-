@@ -1,94 +1,131 @@
 [
   {
-    "name": "Purpose and theory underpin the experiment",
+    "name": "Controller binary compile and exact replay",
     "sanity": true,
     "viewport": "desktop",
     "covers": [
-      "purpose statement",
-      "BARE theory",
-      "G6 counterfactual controls",
-      "empty environments"
+      "categorized controller menu",
+      "G8 compiler and 1000-bit state",
+      "single step",
+      "reset confirmation and cancellation",
+      "G9 descriptors and recurrence",
+      "G9 exact replay",
+      "typed controller signal routing",
+      "model-to-view delivery"
     ],
-    "description": "G6 makes its theoretical purpose explicit without preloading algorithms into the workspace.",
+    "description": "Exercise the shared menu through a compiled binary state and a reproducible experiment.",
     "steps": [
-      "Open ÀTÚNBÍ",
-      "Inspect the purpose and BARE theory section",
-      "Verify the network initially has no algorithms",
-      "Click Run controlled experiment with the empty workspace"
+      "Open Controller menu using laboratory navigation",
+      "Choose G8 binary kernel and compile source",
+      "Step G8 +1 and inspect tick 0001",
+      "Choose Reset G8 then Cancel and verify tick stays 0001",
+      "Return to categories and open G9 discovery",
+      "Run discovery and Verify exact replay"
     ],
-    "expected": "Purpose, hypotheses and G6 controls are present. No simulation is run when no algorithms exist and a warning explains that algorithms must first be installed."
+    "expected": "Menu categories operate actual lab controls, cancellation preserves bits and tick, and discovery renders numeric evidence with Replay PASS."
   },
   {
-    "name": "Connected versus ablated trajectories produce measurable evidence",
+    "name": "Workspace editing and matched G6 experiments",
     "viewport": "desktop",
     "covers": [
-      "deterministic paired experiment",
-      "all-edge ablation",
-      "trajectory divergence",
-      "structural gradient",
-      "persistence and candidate interpretation"
+      "workspace creation and confirmation",
+      "G6 internal and external algorithms",
+      "keyboard graph positioning",
+      "G6 ablation modes and horizon",
+      "non-mutating experimental evidence",
+      "network import export"
     ],
-    "description": "Paired comparison starts from matched algorithm states and reports causal sensitivity without claiming proof of emergence.",
+    "description": "Build and compare a network while keeping experiment evidence separate from live state.",
     "steps": [
-      "Click Load example",
-      "In the G6 workbench leave All connections selected and 24 ticks",
-      "Click Run controlled experiment",
-      "Inspect trajectory graph, final divergence, spatial gradient delta and interpretation"
+      "In controller Workspace choose Load example and confirm",
+      "Inspect two environments with internal algorithms and an external relationship",
+      "Focus an environment header and move it using arrow keys",
+      "In G6 simulation step once, run a controlled experiment and inspect the result",
+      "Select the next ablation mode and horizon, then run again",
+      "Open Evidence and notebook and export the G6 network and G6 experiment",
+      "Choose Clear workspace and cancel, confirming the network remains"
     ],
-    "expected": "A divergence chart with 24 ticks appears and shows nonzero peak divergence, paired measurements, and a cautious interpretation that does not assert scientifically proven emergence."
+    "expected": "The graph moves with the keyboard, G6 reports measured divergence under selected controls, experiment execution preserves the live tick, exports download and cancellation retains the network."
   },
   {
-    "name": "Ablating a different relationship class changes evidence",
+    "name": "Compiler controls, packets and exports",
     "viewport": "desktop",
     "covers": [
-      "internal ablation",
-      "external ablation",
-      "experimental parameter selection",
-      "hypothesis discrimination"
+      "G7 source validation",
+      "G7 24-bit instructions and 32-bit packets",
+      "G7 presets and coupling comparison",
+      "G8 presets and delayed packets",
+      "G8 causal comparison",
+      "G8 source validation",
+      "observer annotations",
+      "G7 G8 G9 evidence export"
     ],
-    "description": "The operator can compare separately disabling internal and external relationships.",
+    "description": "Verify compiler and evidence controls across independent runtimes.",
     "steps": [
-      "Click Load example",
-      "Choose Internal connections only and run controlled experiment",
-      "Choose External connections only and run controlled experiment",
-      "Compare peak divergence and final spatial gradient delta"
+      "In controller G7 compiler compile, step and compare coupling",
+      "Choose Next G7 preset and compile it",
+      "In G8 binary kernel choose Reciprocal XOR preset and step twice",
+      "Run Test G8 causality and change the depth slice",
+      "On the page replace G8 source with MATRIX A RULE 01011010 followed by A BIT (10,0,0) = 1 and compile",
+      "Restore a valid G8 preset, add an observer interpretation on the page and run discovery",
+      "From Evidence and notebook export G7, G8 and G9 evidence"
     ],
-    "expected": "The experiment panel accepts both interventions and updates its trajectory and measurement results without changing the live node graph."
+    "expected": "G7 and G8 execute independently with visible binary instructions and packets. Invalid G8 coordinates reject execution, valid presets recover, observer labels remain external and JSON evidence downloads."
   },
   {
-    "name": "Zero coupling is a valid negative experimental control",
+    "name": "Mobile discovery guards and hypothesis persistence",
     "viewport": "mobile",
     "covers": [
-      "zero-effect control",
-      "disabled relationships",
-      "guardrail",
-      "responsive G6 layout"
+      "mobile controller menu and pagination",
+      "G9 required-field errors and focus",
+      "G9 interventions",
+      "G9 hypothesis status and persistence",
+      "keyboard hypothesis submission",
+      "responsive layout",
+      "mobile G10 PID controls",
+      "workflow accessibility"
     ],
-    "description": "When all relationships are disabled, connected and ablated runs are identical.",
+    "description": "Reject invalid experiments and retain an explicit observer hypothesis on mobile.",
     "steps": [
-      "Click Load example",
-      "Uncheck Active for all inner relationships in each environment",
-      "Uncheck Active on the external relationship",
-      "Choose All connections and run a 10-tick experiment"
+      "Navigate to G9 and clear Ticks, then run discovery",
+      "Verify an inline error and focus on Ticks",
+      "Set 8 ticks and run each available intervention, verifying replay",
+      "Enter Observed recurrence hypothesis, set Inconclusive and save using Enter",
+      "Refresh, run a discovery experiment and inspect the notebook",
+      "Use Controller menu to navigate G8 pages with Previous and Next",
+      "Navigate to G10 composition and verify the PID gain form and binary state summary are usable on mobile",
+      "Navigate to Modular workflow and inspect the edge table without page overflow"
     ],
-    "expected": "Peak divergence is 0.0000, there is no interaction detected and Candidate pattern reads NOT ESTABLISHED."
+    "expected": "Blank required values reject the experiment and focus the invalid field. Valid paired experiments replay exactly, the hypothesis persists with Inconclusive status and the menu remains usable without page overflow."
   },
   {
-    "name": "Export a reproducible G6 evidence record",
+    "name": "PID, logo and executable modular workflow",
     "viewport": "desktop",
     "covers": [
-      "evidence JSON export",
-      "initial network snapshot",
-      "per-tick trajectories",
-      "experiment report metadata"
+      "refined logo resource",
+      "G10 PID convergence and limits",
+      "oscillator logistic diffusion XOR composition",
+      "paired open-loop experiment",
+      "exact system replay",
+      "G8 to composition to G9 binary ports",
+      "workflow disconnection and compatible ports",
+      "saved and imported wiring",
+      "workflow graph and trace",
+      "G10 and workflow controller categories"
     ],
-    "description": "Evidence export must contain the paired experiment configuration and complete observations.",
+    "description": "Verify an executable PID system and real data flow between website modules.",
     "steps": [
-      "Click Load example",
-      "Run a 10-tick controlled experiment",
-      "Click Export evidence JSON",
-      "Inspect downloaded file"
+      "Inspect the \u00c0t\u00fanb\u00ed logo in the header",
+      "In G10 composition select PID regulation, step the binary matrix, compare PID with open loop and verify system replay",
+      "Select Coupled patterns and repeat the comparison and replay",
+      "Compile G8 and click Import G8 matrix in G10",
+      "In G9 select Use matrix from workflow, run discovery and verify replay",
+      "In Modular workflow disable controls-g8 and try stepping G8 from Controller menu; inspect the disconnected message",
+      "Reconnect controls-g8, disable g8-view and step G8 directly; verify the last view state is retained",
+      "Restore default wiring, save it, disable an edge and load saved wiring",
+      "Try connecting an incompatible source output to a view input",
+      "Export the wiring JSON and inspect the delivery trace"
     ],
-    "expected": "A JSON evidence file is downloaded containing BARE v1.0 theory, the initial algorithm states and relationships, the chosen ablation, ten observation records and an explicit interpretation."
+    "expected": "The logo loads, binary cells remain 0/1, PID/open-loop measurements and exact replay appear, matrix transfers work through declared ports, disconnected edges stop delivery, compatible saved wiring reloads and incompatible wiring is rejected visibly."
   }
 ]

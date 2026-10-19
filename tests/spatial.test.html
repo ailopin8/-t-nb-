@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"><title>Controller and spatial verification</title><link rel="icon" href="/favicon.svg"></head>
+<body><section class="spatial-section"><canvas id="qa"></canvas></section>
+<button id="run-btn">Run</button><button id="step-btn">Step</button><span id="view-label">4 ALGORITHMS / 2 ENVIRONMENTS</span><span id="tick-label"></span>
+<script type="module">
+import * as THREE from 'three';
+import {installSpatialControls} from '/src/spatial-controls.ts';
+const assert=(value,message)=>{if(!value)throw Error(message);};
+const camera=new THREE.PerspectiveCamera(55,1,.03,100);camera.position.set(0,1.6,0);
+const scene=new THREE.Scene(),content=new THREE.Group();scene.add(content);
+const controllers=[new THREE.Group(),new THREE.Group()];
+const xr=new THREE.EventDispatcher();Object.assign(xr,{isPresenting:false,getController:i=>controllers[i],getCamera:()=>camera});
+const renderer={xr,domElement:document.querySelector('canvas')};
+const controls={target:new THREE.Vector3(),enabled:true,enableDamping:true,update:()=>{}};
+let running=true,tick=0,cleared=0;
+const toggle=()=>{running=!running;document.querySelector('#view-label').textContent='4 ALGORITHMS / 2 ENVIRONMENTS';};
+const step=()=>{running=false;tick++;document.querySelector('#tick-label').textContent=String(tick);};
+document.querySelector('#run-btn').addEventListener('click',toggle);
+document.querySelector('#step-btn').addEventListener('click',step);
+const update=installSpatialControls({renderer,scene,camera,controls,content,isRunning:()=>running,pause:()=>{running=false;},toggleRun:toggle,step,clearWorkspace:()=>{cleared++;},getSummary:()=>`G6 ${running?'running':'paused'} at tick ${tick}. 2 environments, 1 external relationships.`});
+const original=camera.position.clone();
+xr.isPresenting=true;xr.dispatchEvent({type:'sessionstart'});update(2000);update(2016);
+assert(!running,'Entry must pause');assert(!controls.enabled,'Orbit controls must suspend');
+const rig=content.parent,panel=rig.children.find(c=>c!==content);
+const buttons=()=>panel.children.filter(c=>c.visible&&c.userData.menu);
+function select(id) {
+  scene.updateMatrixWorld(true);const button=buttons().find(b=>b.userData.menu===id);assert(button,'Missing target '+id);
+  const target=button.getWorldPosition(new THREE.Vector3());controllers[0].position.copy(camera.position);
+  controllers[0].quaternion.setFromUnitVectors(new THREE.Vector3(0,0,-1),target.sub(controllers[0].position).normalize());
+  controllers[0].updateMatrixWorld(true);controllers[0].dispatchEvent({type:'select'});
+}
+assert(buttons().length===9,'Six category targets and three navigation targets');assert(rig.position.z<0,'Content ahead of head');
+select('simulation');select('g6-toggle');assert(running,'Ray run');select('g6-toggle');assert(!running,'Ray pause');select('g6-step');assert(tick===1,'Ray step');
+controllers[0].dispatchEvent({type:'squeeze'});select('workspace');select('workspace-clear');assert(cleared===0,'Confirmation required');select('cancel');assert(cleared===0,'Cancel prevents clear');select('workspace-clear');select('confirm');assert(cleared===1,'Confirmed clear executes once');
+controllers[0].dispatchEvent({type:'squeeze'});select('view');camera.position.x=1;select('view-recenter');update(2032);assert(Math.abs(rig.position.x-1)<.001,'Recenter follows head');
+controllers[0].dispatchEvent({type:'squeeze'});select('next');select('evidence');assert(buttons().find(b=>b.userData.menu==='export-network').userData.enabled===false,'Downloads disabled in XR');
+controllers[0].dispatchEvent({type:'squeeze'});
+const gamepad={axes:[0,0,0,1]};controllers[0].dispatchEvent({type:'connected',data:{gamepad}});update(2048);
+controllers[0].position.set(50,50,50);controllers[0].quaternion.identity();controllers[0].dispatchEvent({type:'select'});
+assert(buttons().some(b=>b.userData.menu==='g6-step'),'Thumbstick selected simulation category without a ray hit');
+xr.isPresenting=false;xr.dispatchEvent({type:'sessionend'});
+assert(!running&&controls.enabled,'Exit pauses and restores controls');assert(rig.position.length()===0&&rig.scale.x===1,'Desktop presentation restored');assert(camera.position.equals(original),'Camera restored');
+document.body.dataset.result='PASS';const result=document.createElement('p');result.textContent='PASS: XR categories, ray and thumbstick selection, grip back, pagination, confirmations, disabled desktop actions, run/pause, step, recenter and session restoration';document.body.append(result);
+</script></body></html>
