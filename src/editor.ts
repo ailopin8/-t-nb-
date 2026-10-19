@@ -620,6 +620,10 @@ function rebuildVolume(): void {
   for (const old of [...volumeGroup.children]) {
     volumeGroup.remove(old);
     if (old instanceof THREE.InstancedMesh) (old.material as THREE.Material).dispose();
+    if (old instanceof THREE.Mesh && old.userData.sandboxHitbox===true) {
+      old.geometry.dispose();
+      (old.material as THREE.Material).dispose();
+    }
     if (old instanceof THREE.LineSegments) {
       old.geometry.dispose();
       (old.material as THREE.Material).dispose();
