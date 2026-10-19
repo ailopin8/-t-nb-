@@ -1,0 +1,25 @@
+.composition-lab { margin-top: 14px; }
+.composition-lab h2 { font-size: 23px; }
+.composition-lab input[type=number] { width: 100px; }
+.algorithm-links { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 10px; }
+.algorithm-links label { display: flex; gap: 10px; align-items: center; padding: 12px; border: 1px solid #52738d; border-radius: 8px; color: #d5e8f5; font-size: 13px; min-height: 44px; }
+.composition-lab a,.flow-lab a { color: #a5e4ff; }
+.composition-lab canvas { display: block; width: 100%; height: 240px; }
+.composition-lab pre { font-size: 12px; line-height: 1.8; color: #c5dce9; white-space: pre-wrap; overflow-wrap: anywhere; }
+.flow-lab { padding: 18px; margin-top: 14px; }
+.flow-lab h2 { font-size: 23px; }
+.flow-lab p { font-size: 13px; color: #bfd4e6; line-height: 1.7; }
+.flow-nodes { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 10px; margin: 16px 0; }
+.flow-nodes article { padding: 12px; background: #0d2033; border: 1px solid #52738d; border-radius: 10px; min-width: 0; }
+.flow-nodes h3 { font-size: 14px; margin: 0 0 8px; }
+.flow-nodes p { font: 11px/1.7 monospace; overflow-wrap: anywhere; }
+.flow-lab table { width: 100%; font-size: 12px; border-collapse: collapse; }
+.flow-lab td,.flow-lab th { text-align: left; padding: 10px; border-bottom: 1px solid #38536c; }
+.flow-lab button,.flow-lab select { min-height: 44px; padding: 8px 12px; background: #15324a; color: #e6f4ff; border: 1px solid #638da6; border-radius: 7px; font-size: 13px; max-width: 100%; }
+.flow-lab label { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 5px; color: #c5dce9; font-size: 13px; }
+.flow-lab pre { font: 11px/1.8 monospace; color: #c5dce9; white-space: pre-wrap; overflow-wrap: anywhere; }
+.flow-scroll { overflow-x: auto; }
+.brand-logo { width: 56px; height: 56px; object-fit: contain; flex-shrink: 0; }
+@media(max-width:760px) { .algorithm-links,.flow-nodes { grid-template-columns: 1fr; } .flow-lab input,.flow-lab select { font-size: 16px; } }
+
+#flow-map { display: block; width: 100%; min-width: 860px; height: auto; margin: 10px 0; }

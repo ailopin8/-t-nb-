@@ -1,0 +1,506 @@
+[
+  {
+    "id": "workspace",
+    "label": "Workspace",
+    "actions": [
+      {
+        "id": "workspace-example",
+        "label": "Load example",
+        "pageOnly": false,
+        "confirmationRequired": true
+      },
+      {
+        "id": "workspace-add",
+        "label": "Add empty sandbox",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "workspace-edit",
+        "label": "Edit algorithms and links",
+        "pageOnly": true,
+        "confirmationRequired": false
+      },
+      {
+        "id": "workspace-import",
+        "label": "Import network JSON",
+        "pageOnly": true,
+        "confirmationRequired": false
+      },
+      {
+        "id": "workspace-clear",
+        "label": "Clear workspace",
+        "pageOnly": false,
+        "confirmationRequired": true
+      }
+    ]
+  },
+  {
+    "id": "simulation",
+    "label": "G6 simulation",
+    "actions": [
+      {
+        "id": "g6-toggle",
+        "label": "Run / pause G6",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "g6-step",
+        "label": "Step G6 +1",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "g6-reset",
+        "label": "Reset G6",
+        "pageOnly": false,
+        "confirmationRequired": true
+      },
+      {
+        "id": "g6-experiment",
+        "label": "Run G6 experiment",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "g6-ablation",
+        "label": "Next ablation mode",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "g6-horizon",
+        "label": "Next experiment horizon",
+        "pageOnly": false,
+        "confirmationRequired": false
+      }
+    ]
+  },
+  {
+    "id": "g7",
+    "label": "G7 compiler",
+    "actions": [
+      {
+        "id": "g7-compile",
+        "label": "Compile G7 source",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "g7-toggle",
+        "label": "Run / pause G7",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "g7-step",
+        "label": "Step G7 +1",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "g7-reset",
+        "label": "Reset G7",
+        "pageOnly": false,
+        "confirmationRequired": true
+      },
+      {
+        "id": "g7-compare",
+        "label": "Compare G7 coupling",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "g7-preset",
+        "label": "Next G7 preset",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "g7-source",
+        "label": "Edit system sentences",
+        "pageOnly": true,
+        "confirmationRequired": false
+      }
+    ]
+  },
+  {
+    "id": "g8",
+    "label": "G8 binary kernel",
+    "actions": [
+      {
+        "id": "g8-compile",
+        "label": "Compile G8 source",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "g8-toggle",
+        "label": "Run / pause G8",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "g8-step",
+        "label": "Step G8 +1",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "g8-reset",
+        "label": "Reset G8",
+        "pageOnly": false,
+        "confirmationRequired": true
+      },
+      {
+        "id": "g8-causality",
+        "label": "Test G8 causality",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "g8-feedback",
+        "label": "Reciprocal XOR preset",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "g8-oneway",
+        "label": "One-way preset",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "g8-isolated",
+        "label": "Isolated preset",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "g8-depth",
+        "label": "Next binary depth slice",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "g8-source",
+        "label": "Edit binary source",
+        "pageOnly": true,
+        "confirmationRequired": false
+      },
+      {
+        "id": "g8-interpret",
+        "label": "Annotate G8 meaning",
+        "pageOnly": true,
+        "confirmationRequired": false
+      }
+    ]
+  },
+  {
+    "id": "g9",
+    "label": "G9 discovery",
+    "actions": [
+      {
+        "id": "g9-run",
+        "label": "Run discovery",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "g9-replay",
+        "label": "Verify exact replay",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "g9-mode",
+        "label": "Next intervention mode",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "g9-duration",
+        "label": "Next duration",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "g9-address",
+        "label": "Next flip address",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "g9-time",
+        "label": "Next intervention tick",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "g9-pattern",
+        "label": "Next detected pattern",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "g9-evidence",
+        "label": "Read measured evidence",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "g9-note",
+        "label": "Write observer hypothesis",
+        "pageOnly": true,
+        "confirmationRequired": false
+      }
+    ]
+  },
+  {
+    "id": "view",
+    "label": "View and safety",
+    "actions": [
+      {
+        "id": "view-recenter",
+        "label": "Recenter view",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "view-describe",
+        "label": "Describe G6 state",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "pause-all",
+        "label": "Pause all runtimes",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "view-left",
+        "label": "Orbit left",
+        "pageOnly": true,
+        "confirmationRequired": false
+      },
+      {
+        "id": "view-right",
+        "label": "Orbit right",
+        "pageOnly": true,
+        "confirmationRequired": false
+      },
+      {
+        "id": "view-up",
+        "label": "Orbit up",
+        "pageOnly": true,
+        "confirmationRequired": false
+      },
+      {
+        "id": "view-down",
+        "label": "Orbit down",
+        "pageOnly": true,
+        "confirmationRequired": false
+      },
+      {
+        "id": "view-in",
+        "label": "Zoom in",
+        "pageOnly": true,
+        "confirmationRequired": false
+      },
+      {
+        "id": "view-out",
+        "label": "Zoom out",
+        "pageOnly": true,
+        "confirmationRequired": false
+      }
+    ]
+  },
+  {
+    "id": "evidence",
+    "label": "Evidence and notebook",
+    "actions": [
+      {
+        "id": "export-network",
+        "label": "Export G6 network",
+        "pageOnly": true,
+        "confirmationRequired": false
+      },
+      {
+        "id": "export-g6",
+        "label": "Export G6 experiment",
+        "pageOnly": true,
+        "confirmationRequired": false
+      },
+      {
+        "id": "export-g7",
+        "label": "Export G7 evidence",
+        "pageOnly": true,
+        "confirmationRequired": false
+      },
+      {
+        "id": "export-g8",
+        "label": "Export G8 binary",
+        "pageOnly": true,
+        "confirmationRequired": false
+      },
+      {
+        "id": "export-g9",
+        "label": "Export G9 evidence",
+        "pageOnly": true,
+        "confirmationRequired": false
+      },
+      {
+        "id": "notebook",
+        "label": "Open hypothesis notebook",
+        "pageOnly": true,
+        "confirmationRequired": false
+      }
+    ]
+  },
+  {
+    "id": "references",
+    "label": "Reference library",
+    "actions": [
+      {
+        "id": "references-web",
+        "label": "Web UI and UX process",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "references-simulation",
+        "label": "PhET simulation guidance",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "references-accessibility",
+        "label": "PhET accessibility",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "references-meta",
+        "label": "Meta Quest references",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "references-links",
+        "label": "Open all original links",
+        "pageOnly": true,
+        "confirmationRequired": false
+      }
+    ]
+  },
+  {
+    "id": "composition",
+    "label": "G10 composition",
+    "actions": [
+      {
+        "id": "g10-step",
+        "label": "Step system +1",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "g10-toggle",
+        "label": "Run / pause system",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "g10-reset",
+        "label": "Reset system",
+        "pageOnly": false,
+        "confirmationRequired": true
+      },
+      {
+        "id": "g10-compare",
+        "label": "Compare PID / open loop",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "g10-replay",
+        "label": "Verify system replay",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "g10-import",
+        "label": "Import G8 matrix",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "g10-export",
+        "label": "Export system evidence",
+        "pageOnly": true,
+        "confirmationRequired": false
+      },
+      {
+        "id": "g10-preset",
+        "label": "Next system preset",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "g10-oscillator",
+        "label": "Toggle oscillator edge",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "g10-edit",
+        "label": "Edit PID gains",
+        "pageOnly": true,
+        "confirmationRequired": false
+      }
+    ]
+  },
+  {
+    "id": "workflow",
+    "label": "Modular workflow",
+    "actions": [
+      {
+        "id": "flow-tick",
+        "label": "Advance workflow tick",
+        "pageOnly": false,
+        "confirmationRequired": false
+      },
+      {
+        "id": "flow-save",
+        "label": "Save wiring",
+        "pageOnly": true,
+        "confirmationRequired": false
+      },
+      {
+        "id": "flow-load",
+        "label": "Load saved wiring",
+        "pageOnly": true,
+        "confirmationRequired": false
+      },
+      {
+        "id": "flow-reset",
+        "label": "Restore default wiring",
+        "pageOnly": false,
+        "confirmationRequired": true
+      },
+      {
+        "id": "flow-export",
+        "label": "Export wiring JSON",
+        "pageOnly": true,
+        "confirmationRequired": false
+      },
+      {
+        "id": "flow-edit",
+        "label": "Edit module connections",
+        "pageOnly": true,
+        "confirmationRequired": false
+      }
+    ]
+  }
+]
