@@ -1,95 +1,99 @@
 [
   {
-    "name": "Blank environment and algorithm assignment",
+    "name": "Create empty environment and install independent algorithms",
     "sanity": true,
     "viewport": "desktop",
     "covers": [
-      "initial empty workspace",
-      "create empty environment",
-      "algorithm selection",
-      "pattern generation",
-      "deterministic step"
+      "empty startup",
+      "add environment",
+      "initially empty algorithm collection",
+      "add independent algorithms",
+      "live per-algorithm metrics"
     ],
-    "description": "The application begins with no sandboxes or algorithmic pattern and allows assigning a generating algorithm to an empty environment.",
+    "description": "Confirms no algorithms exist initially and multiple algorithmic patterns can be installed in a single bounded environment.",
     "steps": [
-      "Open the node editor and verify No algorithms exist yet.",
+      "Open the Node Editor and verify No algorithms exist yet",
       "Click Add first empty sandbox",
-      "Verify node says No algorithm and No content",
-      "In Algorithm select Diffusion",
-      "Press Step +1 and examine tick count and changing mean pattern"
+      "In Primary algorithm choose Diffusion",
+      "In Inside an environment, select Oscillator as Install algorithm and click Add algorithm",
+      "Press Step +1"
     ],
-    "expected": "No pattern is prefilled. An empty ENV 1 is created, then Diffusion generates a visible pattern only after it is selected. Tick advances to 0001."
+    "expected": "Environment 1 reports 2 / 4 algorithms and shows separate Diffusion and Oscillator pattern means; both change through simulation steps."
   },
   {
-    "name": "Connect two pattern nodes and measure algorithm coupling",
+    "name": "Internal pattern relation changes only receiving algorithm",
     "viewport": "desktop",
     "covers": [
-      "multiple independent sandboxes",
-      "typed pattern ports",
-      "node-to-node connection",
-      "causal influence measurement"
+      "internal graph links",
+      "typed excite/inhibit transforms",
+      "independent state",
+      "per-algorithm influence measurement",
+      "unlink guardrail"
     ],
-    "description": "Pattern output A feeds and modifies the pre-existing algorithm of B.",
+    "description": "A field produced by one internal algorithm must modify a second algorithm without replacing it.",
     "steps": [
       "Click Load example",
-      "Click Step +1",
-      "Locate ENV 2 in Observe the experiment and examine impact",
-      "Confirm a relationship appears in the Connections panel"
+      "In Inside an environment verify Env 2 has two algorithms and an internal link A1 → A2",
+      "Press Step +1 and inspect impact for A2",
+      "Uncheck Active for the internal A1 → A2 relationship, then click Step +1"
     ],
-    "expected": "ENV 1 Diffusion output is connected to ENV 2 Cellular activation, and impact in ENV 2 becomes nonzero after one tick."
+    "expected": "A2 shows nonzero input influence with its link enabled and zero local influence only when no other incoming active connection exists; the existing algorithms remain present."
   },
   {
-    "name": "Remove and inhibit a relationship without removing algorithms",
+    "name": "Select exported pattern and target another specific algorithm",
     "viewport": "desktop",
     "covers": [
-      "relationship mode editing",
-      "toggle relationship",
-      "remove relationship",
-      "uncoupled control"
+      "select exposed pattern output",
+      "external typed connection",
+      "destination algorithm selection",
+      "multiple nested subsystems"
     ],
-    "description": "The connection can be changed or deleted while preserving both algorithms.",
+    "description": "Internal algorithms remain independent while the selected output drives an explicitly selected external destination algorithm.",
     "steps": [
       "Click Load example",
-      "In Connections select Inhibit (−) and press Step +1",
-      "Uncheck Active and press Step +1",
-      "Remove the relationship"
+      "In Env 2 internal workbench, choose A1 Oscillator as Expose pattern output",
+      "In Connections choose the destination algorithm for the inter-environment edge",
+      "Press Step +1",
+      "Inspect the live pattern fields and per-algorithm influence values"
     ],
-    "expected": "The relationship can inhibit the destination. When disabled, ENV 2 input impact reads 0.0000. Removing it leaves both environments and their algorithms present."
+    "expected": "The exposed pattern selection changes while the other algorithm remains present; the external connection targets a specifically selected existing algorithm."
   },
   {
-    "name": "Move and remove graph nodes on mobile",
+    "name": "Delete internal algorithm and retain remaining system",
     "viewport": "mobile",
     "covers": [
-      "draggable node editor",
-      "remove sandbox",
-      "cascading deletion",
-      "responsive scrollable graph"
+      "internal algorithm deletion",
+      "cascade delete broken links",
+      "empty environment and zero state",
+      "mobile patchbay"
     ],
-    "description": "Node positions can be rearranged and deleting an environment cleans up relationships.",
+    "description": "Deleting one algorithm removes its links but preserves the remaining algorithms and environment.",
     "steps": [
       "Click Load example",
-      "Drag ENV 2 by its header within the graph",
-      "Remove ENV 1 using ×"
+      "In Inside an environment click Remove for A1",
+      "Inspect Environment 2 internal list and external connections",
+      "Remove the remaining A2 algorithm"
     ],
-    "expected": "ENV 2 is repositioned, ENV 1 is deleted, the connection disappears and ENV 2 retains its Cellular activation algorithm."
+    "expected": "After first deletion Environment 2 retains A2 with no invalid links; after deleting both it becomes an empty environment without a pattern."
   },
   {
-    "name": "Export and restore the network",
+    "name": "Export v3 inner and outer network, then import",
     "viewport": "desktop",
     "covers": [
-      "export JSON",
-      "import JSON",
-      "reproducible state",
-      "empty workspace clearing",
-      "import validation"
+      "v3 JSON export",
+      "nested layers and links serialization",
+      "import validation",
+      "graph restoration",
+      "reset"
     ],
-    "description": "A graph can be saved, cleared, and restored with algorithm states and relationship settings.",
+    "description": "Saves and restores the independent algorithm states and relationships in a reproducible JSON record.",
     "steps": [
-      "Click Load example",
-      "Click Export JSON and save the file",
+      "Click Load example and Step +1",
+      "Click Export JSON and save atunbi-g5-network.json",
       "Click Clear workspace and confirm",
-      "Click Import JSON and select the file previously exported"
+      "Click Import JSON and select the exported file",
+      "Inspect the restored algorithm lists and edge settings"
     ],
-    "expected": "Two environments and one relationship reappear after import, each preserving its assigned algorithm and saved state."
+    "expected": "The network restores two environments, four independently stored algorithm states, two inner relationships, one external relationship and the saved tick."
   }
 ]

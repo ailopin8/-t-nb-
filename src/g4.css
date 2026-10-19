@@ -59,3 +59,38 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid 
 #toast{position:fixed;bottom:20px;right:20px;max-width:min(500px,calc(100vw - 40px));padding:12px 15px;background:#18324a;border:1px solid #43769b;color:#d9f2ff;border-radius:10px;font-size:12px;box-shadow:0 8px 35px #0009;z-index:10}
 @media(max-width:1050px){.columns,.lower{grid-template-columns:1fr}.volume{height:390px}.graph-scroller{max-height:520px}}
 @media(max-width:620px){.studio{padding:12px}.mast h1{font-size:17px}.version{font-size:8px;max-width:102px;text-align:center}.intro4{align-items:flex-start}.stats{display:none}.toolbar button{padding:9px;font-size:10px}.graph-scroller{margin:0 9px}.volume{height:340px;margin:0 9px}.section-head{padding:13px 11px}.section-head h3{font-size:15px}.hint{font-size:8px}.graph-foot{gap:9px;font-size:9px}.studio footer{flex-direction:column}#toast{bottom:9px;right:9px;left:9px;max-width:none}}
+
+
+/* G5: internal algorithm composition workbench */
+.inner-section{margin-top:13px}
+#layers-body{padding:0 18px 18px}
+.inner-summary{display:flex;justify-content:space-between;gap:12px;align-items:center;background:#121f31;padding:12px 14px;border:1px solid #2d4661;border-radius:9px}
+.inner-summary span{font:700 11px 'Space Grotesk';color:#a5bdd9;letter-spacing:.55px}
+.inner-summary strong{color:#edc67f;font:700 13px 'Space Grotesk'}
+.inner-help{max-width:920px;color:#95abc5;line-height:1.65;font-size:12px;margin:12px 0}
+.layer-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:9px;margin-bottom:15px}
+.layer-row{display:flex;align-items:center;gap:11px;border:1px solid #30445d;border-radius:9px;padding:12px;background:#102034}
+.layer-color{width:10px;height:10px;flex:none;border-radius:50%;box-shadow:0 0 12px currentColor}
+.layer-name{flex:1;min-width:0}
+.layer-name strong{font:700 12px 'Space Grotesk';display:block}
+.layer-name small{display:block;color:#91a8c5;font-size:10px;margin-top:5px;line-height:1.4}
+.layer-row button,.inner-tools button,.inner-new-link button,.internal-edge button{padding:8px 11px;border-radius:7px;border:1px solid #405774;background:#182a41;color:#d8e8fa;font-size:11px;cursor:pointer}
+.layer-row button,.internal-edge button{color:#f3b4c8;border-color:#67465a;background:#301b2b}
+.inner-tools,.inner-new-link{display:flex;flex-wrap:wrap;align-items:flex-end;gap:10px;padding:13px 0}
+.inner-tools label,.inner-new-link label,.pattern-output label{display:flex;flex-direction:column;gap:6px;font-size:11px;color:#adbfda}
+.inner-tools select,.inner-new-link select,.pattern-output select,.internal-edge select{background:#102037;color:#dfecfa;border:1px solid #3a5575;border-radius:7px;font-size:11px;padding:8px;max-width:100%}
+.inner-tools button.inner-accent,.inner-new-link button{background:#1e5370;border-color:#397c9c;color:#dff6ff}
+.inner-new-link button:disabled{opacity:.4;cursor:not-allowed}
+.pattern-output{border-top:1px solid #27394f;border-bottom:1px solid #27394f;display:flex;align-items:flex-end;gap:15px;flex-wrap:wrap;padding:14px 0;margin:2px 0 13px}
+.pattern-output small{flex:1;line-height:1.55;color:#829bb7;font-size:10px}
+.internal-edges>strong{font-size:12px;font-family:'Space Grotesk';display:block;margin-bottom:8px}
+.internal-edge{display:flex;align-items:center;gap:13px;flex-wrap:wrap;border:1px solid #304663;background:#111e30;padding:10px 12px;border-radius:9px;margin:7px 0;font-size:11px}
+.internal-edge>span{font:700 12px 'Space Grotesk';color:#f0c784}
+.internal-edge label{display:flex;align-items:center;gap:7px;font-size:10px;color:#a2b8d0}
+.internal-edge input[type=range]{accent-color:#d9b56b;width:105px}
+.internal-edge input[type=checkbox]{accent-color:#67daa9}
+.empty-layers{font-size:11px;color:#829cb9;padding:13px 0}
+.inspect-node{font-size:10px;background:#1b3149;color:#c0e9fe;border:1px solid #315e7c;padding:7px 8px;border-radius:7px;margin-bottom:7px;width:100%;text-align:left}
+#layers-body>.placeholder{margin-bottom:3px}
+.edge-settings label:first-child{min-width:145px}
+@media(max-width:620px){#layers-body{padding:0 11px 13px}.layer-list{grid-template-columns:1fr}.inner-tools,.inner-new-link{align-items:stretch;flex-direction:column}.inner-tools label,.inner-new-link label,.inner-tools select,.inner-new-link select{width:100%}.pattern-output{align-items:stretch;flex-direction:column}.inner-summary strong{font-size:11px}}
