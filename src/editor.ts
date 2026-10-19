@@ -1,6 +1,8 @@
+import {registerView, publishState, sendEvidence} from './flow/site';
 import './g4.css';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { installSpatialControls } from './spatial-controls';
 import { VRButton } from 'three/addons/webxr/VRButton.js';
 import { runAblationExperiment } from './emergence';
 import type { ExperimentResult, Ablation } from './emergence';
@@ -103,7 +105,6 @@ function mean(f: Float32Array): number {
   return sum / CELLS;
 }
 function evolve(node: Layer, input: Float32Array, currentTick: number): Float32Array {
-  if (node.algorithm === 'empty') return node.state.slice();
   const next = new Float32Array(CELLS);
   const f = node.state;
   for (let z=0; z<N; z++) for (let y=0; y<N; y++) for (let x=0; x<N; x++) {
@@ -320,15 +321,7 @@ function exportGraph(): void {
       targetPort: 'specific_algorithm_input', mapping: 'identity_xyz'
     }))
   };
-  const file = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
-  const url = URL.createObjectURL(file);
-  const anchor = document.createElement('a');
-  anchor.href = url;
-  anchor.download = 'atunbi-g5-network.json';
-  document.body.appendChild(anchor);
-  anchor.click();
-  anchor.remove();
-  window.setTimeout(() => URL.revokeObjectURL(url), 1000);
+  if(!sendEvidence('g6','atunbi-g5-network.json',payload))return;
   notice('Exported ' + nodes.length + ' environments, ' +
     nodes.reduce((total,n) => total + n.layers.length, 0) + ' algorithms, and all relationships.');
 }
@@ -462,14 +455,14 @@ root.innerHTML = [
   ' <section class="intro4"><div><h2>Create patterns. Compose systems. Test what emerges.</h2><p>Purpose: understand and engineer how algorithms generate collective behaviour. Begin with an empty 10³ environment, install algorithms, connect pattern outputs, and use controlled experiments to measure the consequences.</p></div><div class="stats"><strong id="node-count">0</strong><span>ENVIRONMENTS</span><strong id="edge-count">0</strong><span>RELATIONSHIPS</span></div></section>',
   ' <div class="toolbar"><div class="tools-left"><button type="button" id="add-btn" class="accent">＋ Add empty sandbox</button><button type="button" id="example-btn">Load example</button><button type="button" id="clear-btn">Clear workspace</button></div><div class="tools-right"><button type="button" id="export-btn">↓ Export JSON</button><button type="button" id="import-btn">↑ Import JSON</button><input type="file" id="import-file" accept=".json,application/json" hidden /></div></div>',
   ' <div class="columns">',
-  '  <section class="panel4 graph-section"><div class="section-head"><div><span class="micro">01 / PATTERN NETWORK</span><h3>Node graph</h3></div><span class="hint">DRAG NODES BY THEIR HEADERS</span></div>',
+  '  <section class="panel4 graph-section"><div class="section-head"><div><span class="micro">01 / PATTERN NETWORK</span><h3>Node graph</h3></div><span class="hint">DRAG HEADERS OR FOCUS THEM AND USE ARROW KEYS</span></div>',
   '   <div class="graph-scroller"><div id="graph-board"><svg id="wires" viewBox="0 0 1100 600" aria-label="Pattern relationships"></svg><div id="node-layer"></div><div id="empty-graph"><div class="void-symbol">◇</div><h3>No algorithms exist yet.</h3><p>Start by adding an empty spatial environment. Then select the algorithm that will generate its first pattern.</p><button id="empty-add" type="button">＋ Add first empty sandbox</button></div></div></div>',
   '   <div class="graph-foot"><span><i class="key-dot output"></i> Pattern output</span><span><i class="key-dot input"></i> Algorithm input</span><span><i class="key-line"></i> Executable relationship</span></div>',
   '  </section>',
   '  <section class="panel4 spatial-section"><div class="section-head"><div><span class="micro">02 / COMPOSITE PATTERN SPACE</span><h3>Algorithm-generated patterns</h3></div><span class="hint">10 × 10 × 10 PER ENVIRONMENT</span></div>',
   '   <div class="volume"><canvas id="scene"></canvas><div class="volume-top"><span id="view-label">EMPTY WORKSPACE</span><span id="tick-label">TICK 0000</span></div><div class="volume-bottom">DRAG TO ORBIT · SCROLL TO ZOOM</div></div>',
   '   <div class="transport"><div><button id="run-btn" class="accent">▶ Run</button><button id="step-btn">Step +1</button><button id="reset-btn">↻ Reset</button></div><div id="vr-slot"></div></div>',
-  '   <p class="caption4">An environment contains no objects until algorithms generate patterns. Multiple pattern fields share its coordinate domain and are visualised as a colour mixture. WebXR is view-only.</p>',
+  '   <p class="caption4">An environment contains no objects until algorithms generate patterns. Multiple pattern fields share its coordinate domain and are visualised as a colour mixture. In WebXR, controller-ray targets run, pause, step and recenter the G6 network.</p>',
   '  </section>',
   ' </div>',
   ' <section class="panel4 inner-section"><div class="section-head"><div><span class="micro">03 / INTERNAL ALGORITHM GRAPH</span><h3>Inside an environment</h3></div><span class="hint">SELECT AN ENVIRONMENT TO EDIT ITS INTERNAL PATTERNS</span></div><div id="layers-body"></div></section>',
@@ -478,7 +471,7 @@ root.innerHTML = [
   ' <section class="panel4 g6-theory"><div class="section-head"><div><span class="micro">06 / BARE THEORY · VERSION 1.0</span><h3>Purpose, philosophy and experimental theory</h3></div><span class="hint">HYPOTHESES MUST BE TESTABLE</span></div><div class="g6-theory-body"><p class="g6-purpose">To make the formation of complex system behaviour <strong>observable, experimentally testable and constructible</strong> through algorithmic composition.</p><div class="g6-steps"><span>Bound</span><span>Generate</span><span>Compose</span><span>Observe</span><span>Intervene</span><span>Discover</span></div><details><summary>Show philosophical assumptions and hypotheses</summary><p>Space defines possibility; algorithms generate patterns; relationships execute transformations; composition may produce properties not evident in isolation; knowledge requires controlled intervention. These claims form the proposed Bounded Algorithmic Relational Emergence (BARE) framework, not a new established scientific law.</p><p><strong>H1:</strong> connections change trajectories. <strong>H2:</strong> connections may change spatial organisation. <strong>H3:</strong> some effects persist. <strong>H4:</strong> relationship topology and strength change results. Trajectory divergence alone never proves emergence.</p></details></div></section>',
   ' <section class="panel4 g6-experiment"><div class="section-head"><div><span class="micro">07 / G6 INTERVENTION ENGINE</span><h3>Connected system vs controlled ablation</h3></div><span class="hint">MATCHED INITIAL STATE · DETERMINISTIC RUNS</span></div><div class="g6-body"><p>Run two independent copies of this network from the same current states. The control selectively removes relationships while every existing algorithm continues executing. Your working simulation remains unchanged.</p><div class="g6-controls"><label>Remove relationships in control<select id="g6-ablation"><option value="all">All connections</option><option value="internal">Internal connections only</option><option value="external">External connections only</option></select></label><label>Experiment horizon<select id="g6-horizon"><option value="10">10 ticks</option><option value="24" selected>24 ticks</option><option value="48">48 ticks</option><option value="80">80 ticks</option></select></label><button id="g6-run" class="g6-primary" type="button">▶ Run controlled experiment</button><button id="g6-export" type="button" disabled>↓ Export evidence JSON</button></div><div class="g6-output"><div id="g6-plot" class="g6-plot"><div class="g6-empty">No experiment yet. Add algorithms and connections, then run a controlled comparison.</div></div><div id="g6-observations" class="g6-measures"><p class="g6-empty">The experiment will report spatial divergence, structural differences, persistence and a cautious interpretation.</p></div></div><p class="g6-disclaimer">A measured interaction is evidence of causal sensitivity under this intervention, not automatically evidence of weak or strong emergence. The structural metric is spatial neighbour gradient; the relational metric is within-environment pattern coactivation.</p></div></section>',
   ' <section class="method4"><span class="micro">G6 / ACCEPTANCE GATE</span><p>Define a hypothesis → create independently running algorithms → introduce internal or external relationships → compare connected and ablated runs from identical states → inspect spatial divergence, structural differences and persistence → export evidence. Treat emergence as a candidate interpretation requiring stronger controls.</p></section>',
-  ' <footer>ÀTÚNBÍ · the environment is empty until an algorithm generates a pattern <span>GitHub: ailopin8/-t-nb-</span></footer>',
+  ' <footer>ÀTÚNBÍ · the environment is empty until an algorithm generates a pattern <a href="https://github.com/ailopin8/atunbi-binary-system-compiler">Source on GitHub</a></footer>',
   ' <div id="toast" role="status" aria-live="polite"></div>',
   '</div>'
 ].join('');
@@ -494,12 +487,12 @@ function nodeMarkup(n: Sandbox): string {
   const color = meta[n.algorithm].color;
   const assigned = n.algorithm !== 'empty';
   return '<article class="g-node'+(activeId===n.id?' picked':'')+'" style="left:'+n.x+'px;top:'+n.y+'px;--node-color:'+color+'" data-node="'+n.id+'">'
-    +'<div class="g-node-head" data-drag="'+n.id+'"><span class="environment-label">ENV '+n.id+' · 10³ EMPTY SPACE</span><button class="remove-node" type="button" data-action="delete" data-id="'+n.id+'" aria-label="Remove environment '+n.id+'">×</button></div>'
+    +'<div class="g-node-head" tabindex="0" role="group" aria-label="Environment '+n.id+' position. Arrow keys move; Shift moves farther." data-drag="'+n.id+'"><span class="environment-label">ENV '+n.id+' · 10³ EMPTY SPACE</span><button class="remove-node" type="button" data-action="delete" data-id="'+n.id+'" aria-label="Remove environment '+n.id+'">×</button></div>'
     +'<div class="g-node-body"><div class="node-core"><span class="node-glyph">'+(assigned?'✳':'◇')+'</span><div><strong>'+(assigned?meta[n.algorithm].label:'Empty environment')+'</strong><small>'+ (assigned?'ALGORITHM GENERATING PATTERN':'NO ALGORITHM · NO CONTENT') +'</small></div></div>'
     +'<label class="choose">Primary algorithm<select data-algo="'+n.id+'" aria-label="Algorithm for environment '+n.id+'">'+algoOptions(n.layers[0]?.algorithm ?? 'empty')+'</select></label>'
     +'<p class="algo-note">'+n.layers.length+' independent algorithm(s) in this environment · '+n.innerLinks.length+' internal relationship(s)</p>'
     +'<button class="inspect-node" data-action="inspect" data-id="'+n.id+'" type="button">◎ Edit internal algorithms</button>'
-    +'<div class="node-ports"><button type="button" data-action="target" data-id="'+n.id+'" class="port-button" aria-label="Connect pattern to environment '+n.id+'"><i class="port in"></i>Input</button>'
+    +'<div class="node-ports"><button type="button" data-action="target" data-id="'+n.id+'" class="port-button" aria-label="Input: connect pattern to environment '+n.id+'"><i class="port in"></i>Input</button>'
     +'<button type="button" data-action="source" data-id="'+n.id+'" class="port-button'+(pendingSource===n.id?' armed':'')+'" aria-label="Connect from pattern of environment '+n.id+'">Pattern<i class="port out"></i></button></div>'
     +'<div class="node-measure"><span>EXPOSED PATTERN</span><strong id="node-mean-'+n.id+'">'+mean(n.state).toFixed(3)+'</strong><span>INPUT IMPACT</span><strong id="node-impact-'+n.id+'">'+n.influence.toFixed(4)+'</strong></div>'
     +'</div></article>';
@@ -546,9 +539,8 @@ function internalPanel(): void {
     el.innerHTML='<p class="placeholder">Select or create an environment to edit its internal algorithm graph. The workspace starts empty.</p>';
     return;
   }
-  const options=(Object.keys(meta) as ActiveAlgorithm[]).filter(key=>key!=='empty')
+  const options=(Object.keys(meta) as Algorithm[]).filter((key): key is ActiveAlgorithm => key !== 'empty')
     .map(key=>'<option value="'+key+'">'+meta[key].label+'</option>').join('');
-  const layerOptions=n.layers.map(layer=>'<option value="'+layer.id+'">A'+layer.id+' · '+meta[layer.algorithm].label+'</option>').join('');
   const sourceOptions=n.layers.map(layer=>'<option value="'+layer.id+'">A'+layer.id+' · '+meta[layer.algorithm].label+'</option>').join('');
   const receivingOptions=n.layers.map((layer,i)=>'<option value="'+layer.id+'"'+(i===1?' selected':'')+'>A'+layer.id+' · '+meta[layer.algorithm].label+'</option>').join('');
   el.innerHTML='<div class="inner-summary"><span>ENVIRONMENT '+n.id+' · 10³ coordinate cells</span><strong>'+n.layers.length+' / '+MAX_LAYERS+' algorithms</strong></div>'
@@ -577,7 +569,7 @@ function internalPanel(): void {
     +'<label>Receiving algorithm<select id="inner-to"'+(n.layers.length<2?' disabled':'')+'>'+receivingOptions+'</select></label>'
     +'<button id="inner-connect" type="button"'+(n.layers.length<2?' disabled':'')+'>Connect internal patterns</button></div>';
 }
-function refreshDynamic(): void {
+function render_g6(): void {
   const tickLabel=document.querySelector<HTMLElement>('#tick-label');
   if (tickLabel) tickLabel.textContent='TICK '+String(tick).padStart(4,'0');
   const nc=document.querySelector<HTMLElement>('#node-count');if (nc) nc.textContent=String(nodes.length);
@@ -733,6 +725,22 @@ board.addEventListener('change', event => {
 });
 interface Drag { id:number; sx:number;sy:number;x:number;y:number }
 let drag: Drag|null=null;
+board.addEventListener('keydown', event => {
+  const header = event.target as HTMLElement;
+  if (!header.matches('[data-drag]') || !['ArrowLeft','ArrowRight','ArrowUp','ArrowDown'].includes(event.key)) return;
+  event.preventDefault();
+  const n = nodes.find(node => node.id === Number(header.dataset.drag));
+  if (!n) return;
+  const amount = event.shiftKey ? 40 : 10;
+  if (event.key === 'ArrowLeft') n.x -= amount;
+  if (event.key === 'ArrowRight') n.x += amount;
+  if (event.key === 'ArrowUp') n.y -= amount;
+  if (event.key === 'ArrowDown') n.y += amount;
+  n.x = Math.max(10,Math.min(836,n.x)); n.y = Math.max(10,Math.min(375,n.y));
+  const article = header.closest<HTMLElement>('[data-node]');
+  if (article) {article.style.left=n.x+'px'; article.style.top=n.y+'px';}
+  drawEdges(); notice('Environment '+n.id+' moved to '+n.x+', '+n.y+'. Simulation state unchanged.');
+});
 board.addEventListener('pointerdown',event=>{
   const target=(event.target as HTMLElement).closest<HTMLElement>('[data-drag]');
   if(!target || (event.target as HTMLElement).closest('button'))return;
@@ -796,7 +804,7 @@ internalRoot.addEventListener('click',event=>{
     const select=internalRoot.querySelector<HTMLSelectElement>('#add-layer-type');
     if(!select)return;
     const type=select.value as ActiveAlgorithm;
-    if(!Object.prototype.hasOwnProperty.call(meta,type)||type==='empty')return;
+    if(!Object.prototype.hasOwnProperty.call(meta,type)||String(type)==='empty')return;
     if(addLayer(n,type)){redraw();notice('Another independently evolving '+meta[type].label+' algorithm was added to environment '+n.id+'.');}
     return;
   }
@@ -933,21 +941,29 @@ document.querySelector('#g6-export')?.addEventListener('click',()=>{
     },
     result:lastExperiment
   };
-  const blob=new Blob([JSON.stringify(report,null,2)],{type:'application/json'});
-  const url=URL.createObjectURL(blob),anchor=document.createElement('a');
-  anchor.href=url;anchor.download='atunbi-g6-evidence.json';
-  document.body.appendChild(anchor);anchor.click();anchor.remove();
-  window.setTimeout(()=>URL.revokeObjectURL(url),1000);
+  if(!sendEvidence('g6','atunbi-g6-evidence.json',report))return;
   notice('G6 evidence JSON exported with the starting network and complete paired trajectory measurements.');
 });
+registerView('g6',render_g6);
+function refreshDynamic() {publishState('g6',{tick,environments:nodes.length,algorithms:nodes.reduce((sum,n)=>sum+n.layers.length,0)});}
 redraw();resize();
 notice('Workspace ready. Start with an empty environment; nothing runs until an algorithm is assigned.');
+const updateSpatialControls = installSpatialControls({
+  renderer, scene, camera, controls, content:volumeGroup,
+  clearWorkspace:() => {nodes=[];edges=[];running=false;tick=0;pendingSource=null;activeId=null;redraw();notice('Workspace cleared. No algorithms or patterns exist.');},
+  isRunning:() => running,
+  toggleRun:() => {document.querySelector<HTMLButtonElement>('#run-btn')?.click();},
+  getSummary:() => 'G6 '+(running?'running':'paused')+' at tick '+tick+'. '+nodes.length+' environments, '+edges.length+' external relationships. '+nodes.map(n=>'Environment '+n.id+': '+n.layers.length+' algorithms, output mean '+mean(n.state).toFixed(3)+', input impact '+n.influence.toFixed(4)+'.').join(' '),
+  pause:() => {running=false; const button=document.querySelector<HTMLElement>('#run-btn'); if(button)button.textContent='▶ Run';},
+  step:() => {document.querySelector<HTMLButtonElement>('#step-btn')?.click();}
+});
 renderer.setAnimationLoop((now:number)=>{
   if(running && now-lastStep>=1000/clockHz){
     const count=Math.min(3,Math.floor((now-lastStep)*clockHz/1000));
     for(let i=0;i<count;i++)step();
     lastStep=now;
   }
-  controls.update();
+  if (!renderer.xr.isPresenting) controls.update();
+  updateSpatialControls(now);
   renderer.render(scene,camera);
 });
