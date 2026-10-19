@@ -1,0 +1,71 @@
+[
+  {
+    "name": "Pattern evolves inside bounded environment",
+    "sanity": true,
+    "viewport": "desktop",
+    "covers": [
+      "10x10x10 spatial environment",
+      "pattern generation",
+      "manual tick",
+      "deterministic reset"
+    ],
+    "description": "Environment A displays an internally evolving pattern rather than behaving as an indivisible cube object.",
+    "steps": [
+      "Read the Environment A diffusion node and its pattern field output",
+      "Press Step +1 and inspect the tick counter and Mean energy in A",
+      "Press Reset and verify the tick counter returns to zero"
+    ],
+    "expected": "A pattern-generating node is labelled pattern_A: field[10³]. Tick advances then resets to 0000."
+  },
+  {
+    "name": "Pattern A alters existing B algorithm spatially",
+    "viewport": "desktop",
+    "covers": [
+      "field-valued connection",
+      "spatial modulation",
+      "counterfactual pattern divergence",
+      "connection-disable guardrail"
+    ],
+    "description": "The outgoing voxel field of A enters the activation rule of the already-running B algorithm.",
+    "steps": [
+      "Keep Enable A → B connection on and coupling strength at 0.65",
+      "Press Step +1 about 12 times and inspect Spatial pattern divergence",
+      "Disable the connection, press Reset, step another 12 times and inspect Spatial pattern divergence"
+    ],
+    "expected": "Spatial pattern divergence is positive when connected; it returns to 0.0000 after reset and remains zero with the link disabled."
+  },
+  {
+    "name": "Continuous playback and environment visibility",
+    "viewport": "mobile",
+    "covers": [
+      "play pause controls",
+      "environment selection",
+      "responsive layout",
+      "simulation viewing"
+    ],
+    "description": "The user can view either environment and observe its evolving pattern on a narrow display.",
+    "steps": [
+      "Tap Run and observe tick advancing",
+      "Tap Pause and observe tick stop",
+      "Tap A only, B only and Both cubes"
+    ],
+    "expected": "The visible selected environment changes and simulation controls remain operable."
+  },
+  {
+    "name": "Pattern connection is exported with dimensional schema",
+    "viewport": "desktop",
+    "covers": [
+      "experiment JSON export",
+      "field port identities",
+      "typed spatial connection",
+      "state and counterfactual serialization"
+    ],
+    "description": "Export records show the spatial pattern field and its mapping into the receiving algorithm.",
+    "steps": [
+      "Press Step +1",
+      "Press Export experiment JSON",
+      "Inspect the JSON download and the browser export confirmation"
+    ],
+    "expected": "JSON contains two module states with 1,000 values each, A.pattern_A → B.excitation_B, type voxelwise_pattern_modulation, spatial mapping identity_xyz, and counterfactual data."
+  }
+]
