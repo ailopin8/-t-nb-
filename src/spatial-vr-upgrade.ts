@@ -56,7 +56,7 @@ export function installSpatialControls(o:SpatialOptions):(now:number)=>void {
   const oldCamera=camera.position.clone(),oldTarget=controls.target.clone();
   const space=new THREE.Group();space.name='sandbox-space';
   scene.remove(content);space.add(content);scene.add(space);
-  const zero=new THREE.Vector3(),up=new THREE.Vector3(0,1,0);
+  const zero=new THREE.Vector3();
   const headset=new THREE.Vector3(),forward=new THREE.Vector3(),right=new THREE.Vector3();
   let recenterPending=false,frames=0,previousFrame=0;
 
