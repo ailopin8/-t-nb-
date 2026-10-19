@@ -632,6 +632,16 @@ function rebuildVolume(): void {
     const outline=new THREE.LineSegments(new THREE.EdgesGeometry(new THREE.BoxGeometry(1.19,1.19,1.19)),new THREE.LineBasicMaterial({color: new THREE.Color(meta[n.algorithm].color),transparent:true,opacity:n.algorithm==='empty'?.28:.50}));
     outline.position.set(groupX,groupY,0);
     volumeGroup.add(outline);
+    // Selection collider only: no virtual object is added to the environment.
+    // It follows the empty environment boundary even before an algorithm exists.
+    const collider=new THREE.Mesh(
+      new THREE.BoxGeometry(1.22,1.22,1.22),
+      new THREE.MeshBasicMaterial({transparent:true,opacity:0,colorWrite:false,depthWrite:false,side:THREE.DoubleSide})
+    );
+    collider.position.set(groupX,groupY,0);
+    collider.userData.sandboxHitbox=true;
+    collider.userData.sandboxId=n.id;
+    volumeGroup.add(collider);
     if (!n.layers.length) return;
     const mesh=new THREE.InstancedMesh(geometry,new THREE.MeshBasicMaterial({color:0xffffff}),CELLS);
     mesh.instanceMatrix.setUsage(THREE.DynamicDrawUsage);
@@ -955,7 +965,86 @@ const updateSpatialControls = installSpatialControls({
   toggleRun:() => {document.querySelector<HTMLButtonElement>('#run-btn')?.click();},
   getSummary:() => 'G6 '+(running?'running':'paused')+' at tick '+tick+'. '+nodes.length+' environments, '+edges.length+' external relationships. '+nodes.map(n=>'Environment '+n.id+': '+n.layers.length+' algorithms, output mean '+mean(n.state).toFixed(3)+', input impact '+n.influence.toFixed(4)+'.').join(' '),
   pause:() => {running=false; const button=document.querySelector<HTMLElement>('#run-btn'); if(button)button.textContent='▶ Run';},
-  step:() => {document.querySelector<HTMLButtonElement>('#step-btn')?.click();}
+  step:() => {document.querySelector<HTMLButtonElement>('#step-btn')?.click();},
+  vr: {
+    getIds:()=>nodes.map(n=>n.id),
+    selected:()=>activeId,
+    select:(id:number)=>{
+      const n=nodes.find(n=>n.id===id);
+      if(!n)return 'Environment not found.';
+      activeId=n.id;graphRender();internalPanel();
+      return 'Selected environment '+n.id+'. '+n.layers.length+' installed algorithms.';
+    },
+    create:()=>{
+      const n=addSandbox();
+      return n?'Created empty environment '+n.id+'. Assign an algorithm to generate a pattern.':'Maximum six environments reached.';
+    },
+    cyclePrimary:()=>{
+      const n=nodes.find(n=>n.id===activeId);
+      if(!n)return 'First select an environment with the controller ray.';
+      const types:ActiveAlgorithm[]=['diffusion','oscillator','growth','automaton'];
+      const first=n.layers[0];
+      const next=types[(first?types.indexOf(first.algorithm)+1:0)%types.length];
+      if(first){
+        first.algorithm=next;first.state=seed(next,n.id*17+first.id);first.influence=0;
+      }else addLayer(n,next);
+      syncSandbox(n);redraw();
+      return 'Environment '+n.id+': '+meta[next].label+' algorithm installed.';
+    },
+    addAlgorithm:()=>{
+      const n=nodes.find(n=>n.id===activeId);
+      if(!n)return 'Select an environment first.';
+      const types:ActiveAlgorithm[]=['diffusion','oscillator','growth','automaton'];
+      const next=types[n.layers.length%types.length];
+      const layer=addLayer(n,next);
+      if(!layer)return 'Four algorithms is the current environment limit.';
+      redraw();return 'Installed '+meta[next].label+' as algorithm '+layer.id+'.';
+    },
+    removeAlgorithm:()=>{
+      const n=nodes.find(n=>n.id===activeId);
+      if(!n?.layers.length)return 'There are no algorithms to remove.';
+      const last=n.layers[n.layers.length-1];deleteLayer(n,last.id);
+      return 'Removed algorithm '+last.id+'; other algorithms are preserved.';
+    },
+    cycleOutput:()=>{
+      const n=nodes.find(n=>n.id===activeId);
+      if(!n?.layers.length)return 'Assign an algorithm to this environment first.';
+      const current=n.layers.findIndex(l=>l.id===n.outputLayerId);
+      const next=n.layers[(current+1)%n.layers.length];
+      n.outputLayerId=next.id;syncSandbox(n);redraw();
+      return 'Environment '+n.id+' now exposes algorithm '+next.id+' pattern.';
+    },
+    beginConnection:()=>{
+      const n=nodes.find(n=>n.id===activeId);
+      if(!n?.layers.length)return 'Select a sandbox that contains an algorithm.';
+      pendingSource=n.id;graphRender();
+      return 'Source '+n.id+' armed. Trigger-select a destination sandbox and choose Connect into selected.';
+    },
+    finishConnection:()=>{
+      const n=nodes.find(n=>n.id===activeId);
+      if(!n?.layers.length)return 'Select a destination with algorithms first.';
+      if(pendingSource===null)return 'First use Arm source connection.';
+      if(pendingSource===n.id)return 'The source and destination must be different.';
+      const before=edges.length;connect(n.id);
+      return edges.length>before?'Created pattern connection to environment '+n.id+'.':'Connection already exists or is invalid.';
+    },
+    toggleConnection:()=>{
+      const n=nodes.find(n=>n.id===activeId);
+      if(!n)return 'Select an environment first.';
+      const incoming=edges.find(e=>e.to===n.id);
+      if(!incoming)return 'The selected environment has no incoming external connection.';
+      incoming.enabled=!incoming.enabled;redraw();
+      return 'Incoming link '+(incoming.enabled?'enabled':'disabled')+'.';
+    },
+    deleteSelected:()=>{
+      if(activeId===null)return 'Select an environment first.';
+      const id=activeId;deleteSandbox(id);
+      return 'Environment '+id+' deleted.';
+    },
+    loadExample:()=>{
+      loadExample();return 'Two sandboxes and connected algorithm patterns loaded.';
+    }
+  }
 });
 renderer.setAnimationLoop((now:number)=>{
   if(running && now-lastStep>=1000/clockHz){
